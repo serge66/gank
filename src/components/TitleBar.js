@@ -2,51 +2,89 @@
 
 import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
     TouchableOpacity,
     Image
 } from 'react-native';
+import Utils from '../utils/Utils';
 
-export default class TitleBar extends Component {
+var TitleBar = React.createClass({
 
+    _search() {
+        this.props.propsPara('Search'); // open drawer
+
+    },
+
+    _menu() {
+        this.props.propsPara('DrawerOpen'); // open drawer
+        // this.props.navigation.navigate('DrawerClose'); // close drawer
+    },
+
+    getDefaultProps() {
+        return {
+            propsPara: null,
+        }
+    },
+
+    componentWillMount() {
+
+    },
 
     render() {
         return (
             <View style={styles.container}>
                 <View>
-
+                    <TouchableOpacity
+                        activeOpacity={global.constants.ActiveOpacityNum}
+                        onPress={() => this._menu()}>
+                        <Image resizeMode={'center'}
+                               source={require('../assets/img/icon_menu.png')}
+                               style={styles.img}></Image>
+                    </TouchableOpacity>
                 </View>
                 <View>
-                    <Text>标题</Text>
+                    <Text style={styles.text}>All</Text>
                 </View>
                 <View>
-                    <image></image>
+                    <TouchableOpacity
+                        activeOpacity={global.constants.ActiveOpacityNum}
+                        onPress={() => this._search()}>
+                        <Image resizeMode={'center'}
+                               source={require('../assets/img/icon_search.png')}
+                               style={styles.img}></Image>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
-}
+})
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection:'row',
-        justifyContent: 'center',
+        // flex: 1,
+        width: Utils.size.width,
+        height: Utils.getHeight(50),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#ffffff',
+        paddingLeft: Utils.getWidth(15),
+        paddingRight: Utils.getWidth(15),
+        borderBottomWidth:Utils.getHeight(1),
+        borderBottomColor:'#cccccc'
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    img: {
+        width: Utils.getWidth(20),
+        height: Utils.getHeight(20),
+        margin: 1,
     },
-    instructions: {
+    text: {
         textAlign: 'center',
         color: '#333333',
-        marginBottom: 5,
+        fontSize: Utils.getWidth(17),
     },
 });
 
+export default TitleBar;

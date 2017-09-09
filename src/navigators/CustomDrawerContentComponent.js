@@ -23,7 +23,7 @@ const CustomDrawerContentComponent = (props) => (
                         <Image source={require('../assets/img/icon_me.png')} style={styles.img}/>
                     </TouchableOpacity>
                 </View>
-                <DrawerItems {...props} />
+                <DrawerItems {...props}/>
             </View>
         </ScrollView>
     </View>

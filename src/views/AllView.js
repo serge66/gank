@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
+import TitleBar from '../components/TitleBar';
 
 export default class All extends Component {
     _navigator() {
@@ -19,7 +20,7 @@ export default class All extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View></View>
+                <TitleBar propsPara={this.props.navigation.navigate}/>
                 <View></View>
             </View>
         );
@@ -29,7 +30,8 @@ export default class All extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        flexDirection:'column',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#ffffff',
     },

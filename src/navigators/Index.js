@@ -7,11 +7,11 @@ import {
     View,
     StyleSheet
 } from 'react-native';
-import All from '../views/All';
-import Android from '../views/Android';
+import All from '../views/AllView';
+import Android from '../views/AndroidView';
 import Utils from '../utils/Utils';
 import CustomDrawerContentComponent from './CustomDrawerContentComponent';
-
+import SearchView from "../views/SearchView";
 
 const MyApp = DrawerNavigator({
     All: {
@@ -101,12 +101,13 @@ const MyApp = DrawerNavigator({
         initialRouteName: 'All',
         activeItemKey: 'All',//识别活动路线的钥匙
         labelStyle: {
-            height: Utils.getHeight(30),
+            height: Utils.getHeight(20),
+            fontSize:Utils.getWidth(15),
             textAlign:'center',
 
         },
         activeTintColor: 'white',
-        activeBackgroundColor: '#556266',
+        activeBackgroundColor: '#cccccc',
         inactiveTintColor: '#000',
         inactiveBackgroundColor: '#fff',
         style: {
@@ -119,8 +120,17 @@ const MyApp = DrawerNavigator({
 
 const App = StackNavigator({
     Root: {
-        screen: MyApp
+        screen: MyApp,
+        navigationOptions: {
+            header:null,
+        },
     },
+    Search:{
+        screen:SearchView,
+        navigationOptions: {
+            headerTitle:'Search',
+        },
+    }
 });
 
 const styles = StyleSheet.create({
@@ -131,10 +141,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     icon: {
-        padding: 2,
+        // padding: 2,
         width:Utils.getWidth(30),
         height:Utils.getHeight(30),
     },
 });
 
-export default MyApp;
+export default App;
