@@ -21,7 +21,7 @@
             "react-native-root-siblings": "^1.2.1",
                 "prop-types": "^15.5.10"
         }
-        "react-native-storage": "^0.2.2",
+
         "react-navigation": "^1.0.0-beta.11",
         "react-redux": "^5.0.6",
         "redux": "^3.7.2",
