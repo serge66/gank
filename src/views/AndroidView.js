@@ -30,13 +30,6 @@ class AndroidView extends Component {
             dataArray: []
         }
     }
-    _navigator() {
-        this
-            .props
-            .navigation
-            .navigate('DrawerOpen'); // open drawer
-        // this.props.navigation.navigate('DrawerClose'); // close drawer
-    }
 
     //网络请求
     fetchData() {
@@ -62,19 +55,18 @@ class AndroidView extends Component {
     }
 
     componentDidMount() {
-        //请求数据
-        this.fetchData();
-        // this     .props     .dispatch(doDoing());
-        
+        // 请求数据
+        this
+            .props
+            .dispatch(doDoing());
+        // this.fetchData();
+
     }
-    // <View style={styles.container}>     <ActivityIndicator animating={true}
-    //   style={[styles.gray, {height: 80}]} color='red'         size="large"     />
-    // </View> 加载等待的view
+    
     renderLoadingView() {
         return (
-
-            <View style={styles.container}>
-                <View></View>
+            <View>
+                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
                 <Progress visible={this.props.android.isShowProgress}/>
             </View>
         );
@@ -95,32 +87,33 @@ class AndroidView extends Component {
     renderItemView({item}) {
         return (
             <View>
-                <Text style={styles.title}>name: {item.value.desc}
-                    ({item.value.desc}
-                    stars)</Text>
-                <Text style={styles.content}>description: {item.value.who}</Text>
+                <Text style={styles.title}>name: {item.desc}
+                </Text>
+                <Text style={styles.content}>description: {item.who}</Text>
             </View>
         );
     }
 
     renderData() {
+        console.log(this.props.android)
         return (
-            <ScrollView >
+            <View>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-
-                <Text >
-                    Data:
-                </Text>
-                <AnimatedFlatList data={this.state.dataArray} renderItem={this.renderItemView}/>
-            </ScrollView>
+                <ScrollView >
+                    <AnimatedFlatList
+                        data={this.props.android.data.results}
+                        renderItem={this.renderItemView}/>
+                </ScrollView>
+            </View>
         );
     }
 
     render() {
         //第一次加载等待的view
-        if (this.state.isLoading && !this.state.error) {
+        console.log('----this.props.android.status:' + this.props.android.status);
+        if (this.props.android.status == 'doing') {
             return this.renderLoadingView();
-        } else if (this.state.error) {
+        } else if (this.props.android.status == 'error') {
             //请求失败view
             return this.renderErrorView(this.state.errorInfo);
         }
