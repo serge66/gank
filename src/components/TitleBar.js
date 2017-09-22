@@ -9,6 +9,7 @@ import {
     Image
 } from 'react-native';
 import Utils from '../utils/Utils';
+import CommonStyles from '../styles/Common';
 
 var TitleBar = React.createClass({
 
@@ -34,7 +35,7 @@ var TitleBar = React.createClass({
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,CommonStyles.adaptiveTopiOS]}>
                 <View>
                     <TouchableOpacity
                         activeOpacity={global.constants.ActiveOpacityNum}
@@ -45,7 +46,7 @@ var TitleBar = React.createClass({
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text style={styles.text}>All</Text>
+                    <Text style={styles.text}>{this.props.title}</Text>
                 </View>
                 <View>
                     <TouchableOpacity
@@ -73,7 +74,8 @@ const styles = StyleSheet.create({
         paddingLeft: Utils.getWidth(15),
         paddingRight: Utils.getWidth(15),
         borderBottomWidth:Utils.getHeight(1),
-        borderBottomColor:'#cccccc'
+        borderBottomColor:'#cccccc',
+        paddingTop:Utils.getHeight(20),
     },
     img: {
         width: Utils.getWidth(20),

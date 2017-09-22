@@ -1,0 +1,7 @@
+
+一 react-native-root-siblings 在RN 0.48.1中存在不兼容
+临时解决方案：
+修改node_modules/react-native-root-siblings/lib/AppRegistryInjection.js 中的第4行
+改为import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
+RN的这个版本移动的emitter包的位置
+
