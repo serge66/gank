@@ -5,8 +5,8 @@ import ToastUtils from '../utils/ToastUtils';
 
 let mDispatch;
 
-function _requestObj() {
-    return new Request('http://gank.io/api/data/Android/20/1', {
+function _requestObj(num) {
+    return new Request('http://gank.io/api/data/Android/20/'+num, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -38,26 +38,26 @@ function _json(res) {
 function _parseJson(responseJson) {
     console.log('androidview responsejson:'+responseJson);
     if (!responseJson.error) {
-        ToastUtils.show("网络连接成功");
-        mDispatch(done(responseJson));
+        // ToastUtils.show("网络连接成功");
+            mDispatch(done(responseJson));
     } else {
-        ToastUtils.show("网络连接失败，请重连后重试");
+        // ToastUtils.show("网络连接失败，请重连后重试");
         mDispatch(error());
     }
 }
 
 function _catch(error) {
     // console.error(error);
-    ToastUtils.show("网络连接失败，请重连后重试");
-    mDispatch(error());
+    // ToastUtils.show("网络连接失败，请重连后重试");
+    mDispatch(android_error());
 }
 
-export function doDoing(opt) {
+export function doDoing(num) {
     return (dispatch) => {
         mDispatch = dispatch;
         dispatch(doing());
 
-        let result = fetch(_requestObj())
+        let result = fetch(_requestObj(num))
             .then(_status)
             .then(_json)
             .then(_parseJson)
@@ -74,6 +74,6 @@ function done(data) {
     return {type: Type.android.ANDROD_DONE, data: data}
 }
 
-function error() {
+function android_error() {
     return {type: Type.android.ANDROD_ERROR}
 }
