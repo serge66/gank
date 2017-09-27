@@ -19,16 +19,30 @@ import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+let mCurPage;
+let isFirst = true;
 
 class AndroidView extends Component {
 
+    componentWillMount(){
+        mCurPage = 1;
+    }
     componentDidMount() {
         // 请求数据
+        mCurPage=1;
+        let opt ={
+            num:mCurPage,
+           isRefresh:false,
+        };
         this
-            .props
-            .dispatch(doDoing(1));
+        .props
+        .dispatch(doDoing(opt));
     }
-
+    componentDidUpdate(){
+        if(this.props.android&&this.props.android.data){
+            isFirst = false;
+        }
+    }
     renderLoadingView() {
         return (
             <View>
@@ -56,7 +70,6 @@ class AndroidView extends Component {
         alert(index)
     }
 
-
     //返回itemView
     _renderItemView({item,index}) {
         return (
@@ -77,7 +90,6 @@ class AndroidView extends Component {
                     style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
             </TouchableOpacity>
         );
-
     }
 
     _header() {
@@ -112,18 +124,36 @@ class AndroidView extends Component {
         );
     }
     _refreshing() {
-        ToastUtils.show('刷新成功');
+        // if(isFirst){
+        //     return;
+        // }
+        // ToastUtils.show('刷新成功');
+        console.log('刷新成功');
+        // mCurPage=1;
+        // let opt ={
+        //     num:mCurPage,
+        //    isRefresh:true,
+        // };
+        // this
+        // .props
+        // .dispatch(doDoing(opt));
     }
 
     _onload() {
-        ToastUtils.show('到达底部');
+        // ToastUtils.show('到达底部');
+        mCurPage++;
+        let opt ={
+            num:mCurPage,
+           isRefresh:false,
+        };
         this
         .props
-        .dispatch(doDoing(2));
+        .dispatch(doDoing(opt));
     }
     _sourceData(){
-        if(this.props.android&&this.props.android.data&&this.props.android.data.results){
-           return this.props.android.data.results
+        if(this.props.android&&this.props.android.data){
+            // isFirst = false;
+           return this.props.android.data
         }else{
            return null
         }
@@ -134,21 +164,22 @@ class AndroidView extends Component {
     renderData() {
         console.log(this.props.android)
         return (
-            <View style={commonStyles.bgColor}>
+            <View style={[commonStyles.bgColor,commonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
                     <AnimatedFlatList
+                        style={[commonStyles.bgColor,commonStyles.flex1]}
                         data={this._sourceData()}
                         renderItem={this._renderItemView.bind(this)}
                         //ListHeaderComponent={this._header}
                         ListFooterComponent={this._footer}
                         //ItemSeparatorComponent={this._separator}
-                        ListEmptyComponent={this._listEmptyComponent}
+                        //ListEmptyComponent={this._listEmptyComponent}
                         onRefresh={this._refreshing()}
                         refreshing={this.props.android.isShowProgress}
                         keyExtractor={this._keyExtractor}
                         refreshControl={
                              <RefreshControl
-                                 refreshing={false}
+                                 refreshing={this.props.android.isShowProgress}
                              />
                          }
                         onEndReachedThreshold={0.1}
@@ -166,9 +197,7 @@ class AndroidView extends Component {
     render() {
         //第一次加载等待的view
         console.log('----this.props.android.status:' + this.props.android.status);
-        if (this.props.android.status == 'doing') {
-            return this.renderLoadingView();
-        } else if (this.props.android.status == 'error') {
+        if (this.props.android.status == 'error') {
             //请求失败view
             return this.renderErrorView();
         }

@@ -8,7 +8,7 @@ const initialState = {
     status: 'init',
     isSuccess: false,
     data: null,
-    isShowProgress:false,
+    isShowProgress: true
 }
 // 不同类别的事件使用switch对应处理过程
 
@@ -20,8 +20,8 @@ export default function loginIn(state = initialState, action) {
                 ...state,
                 status: 'doing',
                 isSuccess: false,
-                data: null,
-                isShowProgress:true,
+                data: action.data,
+                isShowProgress: true
             }
             break;
         case Types.android.ANDROD_DONE:
@@ -31,7 +31,7 @@ export default function loginIn(state = initialState, action) {
                 status: 'success',
                 isSuccess: true,
                 data: action.data,
-                isShowProgress:false,
+                isShowProgress: false
             }
             break;
         case Types.android.ANDROD_ERROR:
@@ -40,8 +40,8 @@ export default function loginIn(state = initialState, action) {
                 ...state,
                 status: 'error',
                 isSuccess: false,
-                data: null,
-                isShowProgress:false,
+                data: action.data,
+                isShowProgress: false
             }
             break;
         default:

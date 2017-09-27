@@ -4,9 +4,10 @@ import Type from './Types';
 import ToastUtils from '../utils/ToastUtils';
 
 let mDispatch;
+let mTotalData = [];
 
 function _requestObj(num) {
-    return new Request('http://gank.io/api/data/Android/20/'+num, {
+    return new Request('http://gank.io/api/data/Android/10/' + num, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -36,28 +37,36 @@ function _json(res) {
 }
 
 function _parseJson(responseJson) {
-    console.log('androidview responsejson:'+responseJson);
+    console.log('androidview responsejson:' + responseJson);
     if (!responseJson.error) {
-        // ToastUtils.show("网络连接成功");
-            mDispatch(done(responseJson));
+        ToastUtils.show("网络连接成功");
+        console.log('mTotalData:-----');
+        console.log(mTotalData);
+
+        mTotalData = mTotalData.concat(responseJson.results);
+        mDispatch(android_done(mTotalData));
+        console.log('mTotalData:-----');
+        console.log(mTotalData);
     } else {
-        // ToastUtils.show("网络连接失败，请重连后重试");
-        mDispatch(error());
+        ToastUtils.show("网络连接失败，请重连后重试");
+        mDispatch(android_error(mTotalData));
     }
 }
 
 function _catch(error) {
-    // console.error(error);
-    // ToastUtils.show("网络连接失败，请重连后重试");
-    mDispatch(android_error());
+    // console.error(error); ToastUtils.show("网络连接失败，请重连后重试");
+    mDispatch(android_error(mTotalData));
 }
 
-export function doDoing(num) {
+export function doDoing(opt) {
     return (dispatch) => {
         mDispatch = dispatch;
-        dispatch(doing());
+        if(opt.isRefresh){
+            mTotalData = [];
+        }
+        dispatch(android_doing(mTotalData));
 
-        let result = fetch(_requestObj(num))
+        let result = fetch(_requestObj(opt.num))
             .then(_status)
             .then(_json)
             .then(_parseJson)
@@ -66,14 +75,14 @@ export function doDoing(num) {
     }
 }
 
-function doing() {
-    return {type: Type.android.ANDROD_DOING}
+function android_doing(data) {
+    return {type: Type.android.ANDROD_DOING, data: data}
 }
 
-function done(data) {
+function android_done(data) {
     return {type: Type.android.ANDROD_DONE, data: data}
 }
 
-function android_error() {
-    return {type: Type.android.ANDROD_ERROR}
+function android_error(data) {
+    return {type: Type.android.ANDROD_ERROR, data: data}
 }
