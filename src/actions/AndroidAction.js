@@ -7,7 +7,7 @@ let mDispatch;
 let mTotalData = [];
 
 function _requestObj(num) {
-    return new Request('http://gank.io/api/data/Android/10/' + num, {
+    return new Request('http://gank.io/api/data/Android/2/' + num, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -19,8 +19,8 @@ function _status(response) {
     if (response.ok) {
 
         console.log(response.status);
-        console.log(response.statusText);
-        console.log(response.type);
+        // console.log(response.statusText);
+        // console.log(response.type);
         console.log(response.url);
         console.log('------------------');
 
@@ -37,15 +37,15 @@ function _json(res) {
 }
 
 function _parseJson(responseJson) {
-    console.log('androidview responsejson:' + responseJson);
+    // console.log('androidview responsejson:' + responseJson);
     if (!responseJson.error) {
         ToastUtils.show("网络连接成功");
-        console.log('mTotalData:-----');
+        console.log('mTotalData  11111:-----');
         console.log(mTotalData);
 
         mTotalData = mTotalData.concat(responseJson.results);
         mDispatch(android_done(mTotalData));
-        console.log('mTotalData:-----');
+        console.log('mTotalData  22222:-----');
         console.log(mTotalData);
     } else {
         ToastUtils.show("网络连接失败，请重连后重试");
@@ -61,10 +61,10 @@ function _catch(error) {
 export function doDoing(opt) {
     return (dispatch) => {
         mDispatch = dispatch;
-        if(opt.isRefresh){
+        if(opt.isRefreshing){
             mTotalData = [];
         }
-        dispatch(android_doing(mTotalData));
+        dispatch(android_doing(mTotalData,opt.isRefreshing,opt.isLoading));
 
         let result = fetch(_requestObj(opt.num))
             .then(_status)
@@ -75,8 +75,9 @@ export function doDoing(opt) {
     }
 }
 
-function android_doing(data) {
-    return {type: Type.android.ANDROD_DOING, data: data}
+function android_doing(data,isRefreshing,isLoadging) {
+    return {type: Type.android.ANDROD_DOING, data: data,
+        isRefreshing:isRefreshing,isLoading:isLoadging}
 }
 
 function android_done(data) {

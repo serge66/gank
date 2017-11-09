@@ -15,17 +15,17 @@ import SearchView from "../views/SearchView";
 
 const MyApp = DrawerNavigator({
     // All: {
-    //     screen: All,
-    //     navigationOptions: {
-    //         drawerLabel: 'All',
-    //         drawerIcon: ({tintColor}) => (
-    //             <Image
-    //                 source={require('../assets/img/icon_all.png')}
-    //                 style={[styles.icon, {tintColor: tintColor}]}/>
-    //         ),
-    //     },
-
-    // },
+    //      screen: All,
+    //      navigationOptions: {
+    //          drawerLabel: 'All',
+    //          drawerIcon: ({tintColor}) => (
+    //              <Image
+    //                  source={require('../assets/img/icon_all.png')}
+    //                  style={[styles.icon, {tintColor: tintColor}]}/>
+    //          ),
+    //      },
+    //
+    //  },
     Android: {
         screen: Android,
         navigationOptions: {

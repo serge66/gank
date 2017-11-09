@@ -21,33 +21,30 @@ import ToastUtils from "../utils/ToastUtils";
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
 let isFirst = true;
+let thiz;
 
 class AndroidView extends Component {
 
-    componentWillMount(){
+    componentWillMount() {
+        thiz = this;
         mCurPage = 1;
     }
+
     componentDidMount() {
-        // 请求数据
-        mCurPage=1;
-        let opt ={
-            num:mCurPage,
-           isRefresh:false,
-        };
-        this
-        .props
-        .dispatch(doDoing(opt));
+        this._refreshing();
     }
-    componentDidUpdate(){
-        if(this.props.android&&this.props.android.data){
-            isFirst = false;
-        }
+
+    componentDidUpdate() {
+        // if (this.props.android && this.props.android.data) {
+        //     isFirst = false;
+        // }
     }
+
     renderLoadingView() {
         return (
             <View>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-                <Progress visible={this.props.android.isShowProgress}/>
+                <Progress visible={this.props.android.isRefreshing||this.props.android.isLoading}/>
             </View>
         );
     }
@@ -65,24 +62,24 @@ class AndroidView extends Component {
     }
 
     //点击列表点击每一行
-    _clickItem(item,index) {
-        alert(item.desc)
-        alert(index)
+    _clickItem(item, index) {
+        // alert(item.desc)
+        // alert(index)
     }
 
     //返回itemView
-    _renderItemView({item,index}) {
+    _renderItemView({item, index}) {
         return (
             <TouchableOpacity
                 style={commonStyles.item}
                 key={item.index}
                 activeOpacity={1}
-                onPress={() => this._clickItem(item,index)}>
+                onPress={() => this._clickItem(item, index)}>
 
                 <Text
                     numberOfLines={2}
                     lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>{item.desc}</Text>
+                    style={commonStyles.itemTop}>{index + '     '+item.desc}</Text>
 
                 <Text
                     numberOfLines={1}
@@ -102,7 +99,7 @@ class AndroidView extends Component {
 
     _footer() {
         return (
-            <View style={{height:Utils.getHeight(50),flex:1}}>
+            <View style={{height: Utils.getHeight(50), flex: 1}}>
             </View>
         );
     }
@@ -113,93 +110,101 @@ class AndroidView extends Component {
             </View>
         );
     }
-    _listEmptyComponent(){
-        return(
+
+    _listEmptyComponent() {
+        return (
             <View style={[styles.container, commonStyles.bgColor]}>
-                <Text style={[styles.emptyData,commonStyles.bgColor]}>
+                <Text style={[styles.emptyData, commonStyles.bgColor]}>
                     数据为空!
                 </Text>
-                <Text style={[styles.emptyData,commonStyles.bgColor]}/>
+                <Text style={[styles.emptyData, commonStyles.bgColor]}/>
             </View>
         );
     }
+
     _refreshing() {
-        // if(isFirst){
-        //     return;
-        // }
-        // ToastUtils.show('刷新成功');
-        console.log('刷新成功');
-        // mCurPage=1;
-        // let opt ={
-        //     num:mCurPage,
-        //    isRefresh:true,
-        // };
-        // this
-        // .props
-        // .dispatch(doDoing(opt));
+        mCurPage = 1;
+        let opt = {
+            num: mCurPage,
+            isRefreshing: true,
+            isLoading: false,
+        };
+        thiz
+            .props
+            .dispatch(doDoing(opt));
+        console.log('xxxxxxxxxxxxxxxx刷新成功');
     }
 
     _onload() {
         // ToastUtils.show('到达底部');
         mCurPage++;
-        let opt ={
-            num:mCurPage,
-           isRefresh:false,
+        let opt = {
+            num: mCurPage,
+            isRefreshing: false,
+            isLoading: true,
         };
-        this
-        .props
-        .dispatch(doDoing(opt));
+        thiz
+            .props
+            .dispatch(doDoing(opt));
+        console.log('xxxxxxxxxxxxxxxx加载更多');
     }
-    _sourceData(){
-        if(this.props.android&&this.props.android.data){
+
+    _sourceData() {
+        if (this.props.android && this.props.android.data) {
             // isFirst = false;
-           return this.props.android.data
-        }else{
-           return null
+            return this.props.android.data
+        } else {
+            return null
         }
     }
+
     //此函数用于为给定的item生成一个不重复的key
     _keyExtractor = (item, index) => item._id;
 
     renderData() {
         console.log(this.props.android)
         return (
-            <View style={[commonStyles.bgColor,commonStyles.flex1]}>
+            <View style={[commonStyles.bgColor, commonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-                    <AnimatedFlatList
-                        style={[commonStyles.bgColor,commonStyles.flex1]}
-                        data={this._sourceData()}
-                        renderItem={this._renderItemView.bind(this)}
-                        //ListHeaderComponent={this._header}
-                        ListFooterComponent={this._footer}
-                        //ItemSeparatorComponent={this._separator}
-                        //ListEmptyComponent={this._listEmptyComponent}
-                        onRefresh={this._refreshing()}
-                        refreshing={this.props.android.isShowProgress}
-                        keyExtractor={this._keyExtractor}
-                        refreshControl={
-                             <RefreshControl
-                                 refreshing={this.props.android.isShowProgress}
-                             />
-                         }
-                        onEndReachedThreshold={0.1}
-                        onEndReached={() => {
-                            this._onload()
-                        }}
-                        getItemLayout={(data, index) => (
-                             {length: Utils.getHeight(67), offset: Utils.getHeight(67) * index, index}
-                         )}
-                    />
+                <FlatList
+                    showsVerticalScrollIndicator={true}//是否显示垂直滚动条
+                    showsHorizontalScrollIndicator={false}//是否显示水平滚动条
+                    numColumns={1}//每行显示1个
+                    enableEmptySections={true}//数据可以为空
+                    style={[commonStyles.bgColor, commonStyles.flex1]}
+                    data={this._sourceData()}
+                    renderItem={this._renderItemView.bind(this)}
+                    //ListHeaderComponent={this._header}
+                    ListFooterComponent={this._footer}
+                    //ItemSeparatorComponent={this._separator}
+                    //ListEmptyComponent={this._listEmptyComponent}
+                    // refreshing={false}
+                    keyExtractor={this._keyExtractor}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.props.android.isRefreshing}
+                            onRefresh={this._refreshing}//此处需要的是方法 _regreshing后面不能有()
+                        />
+                    }
+                    onEndReachedThreshold={0.1}
+                    onEndReached={() => {
+                        this._onload()//此处需要的是方法 用箭头函数也可以
+                    }}
+                    getItemLayout={(data, index) => (
+                        {length: Utils.getHeight(67), offset: Utils.getHeight(67) * index, index}
+                    )}
+                />
             </View>
         );
     }
 
     render() {
-        //第一次加载等待的view
         console.log('----this.props.android.status:' + this.props.android.status);
         if (this.props.android.status == 'error') {
             //请求失败view
             return this.renderErrorView();
+        } else if (this.props.android.status == 'init') {
+            return null;
         }
         //加载数据
         return this.renderData();
@@ -221,7 +226,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         marginTop: Utils.size.height / 5 * 2,
     },
-    emptyData:{
+    emptyData: {
         flex: 1,
         // position:'absolute',
         alignSelf: 'center',
