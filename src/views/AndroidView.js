@@ -9,6 +9,7 @@ import {
     View,
     TouchableOpacity,
     RefreshControl,
+    ActivityIndicator,
 } from "react-native";
 import TitleBar from '../components/TitleBar';
 import Utils from '../utils/Utils';
@@ -17,6 +18,7 @@ import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
+import ProgressComponent from '../components/ProgressComponent';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
@@ -44,7 +46,7 @@ class AndroidView extends Component {
         return (
             <View>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-                <Progress visible={this.props.android.isRefreshing||this.props.android.isLoading}/>
+                <Progress visible={this.props.android.isRefreshing || this.props.android.isLoading}/>
             </View>
         );
     }
@@ -71,15 +73,16 @@ class AndroidView extends Component {
     _renderItemView({item, index}) {
         return (
             <TouchableOpacity
-                style={commonStyles.item}
+                style={[commonStyles.item,{height:Utils.getHeight(67)}]}
                 key={item.index}
                 activeOpacity={1}
                 onPress={() => this._clickItem(item, index)}>
 
                 <Text
-                    numberOfLines={2}
+                    numberOfLines={1}
                     lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>{index + '     '+item.desc}</Text>
+                    style={commonStyles.itemTop}>
+                    {index + '     ' + item.desc}</Text>
 
                 <Text
                     numberOfLines={1}
@@ -98,12 +101,29 @@ class AndroidView extends Component {
     }
 
     _footer() {
+       if(!thiz.props.android.isLoading){
+           return thiz._foot_no_loading();
+       }else{
+           return thiz._foot_loading();
+       }
+    }
+    _foot_loading(){
+        return (
+            <View style={{height: Utils.getHeight(50), flex: 1}}>
+                <ActivityIndicator
+                    // color={this.props.color}
+                    size="small"
+                    style={{flex: 1}}
+                />
+            </View>
+        );
+    }
+    _foot_no_loading(){
         return (
             <View style={{height: Utils.getHeight(50), flex: 1}}>
             </View>
         );
     }
-
     _separator() {
         return (
             <View style={commonStyles.separator}>
@@ -190,6 +210,8 @@ class AndroidView extends Component {
                     onEndReached={() => {
                         this._onload()//此处需要的是方法 用箭头函数也可以
                     }}
+                    //如果设置了getItemLayout，那么renderItem的高度必须和这个高度一样，
+                    // 否则加载一段列表后就会出现错乱和显示空白。
                     getItemLayout={(data, index) => (
                         {length: Utils.getHeight(67), offset: Utils.getHeight(67) * index, index}
                     )}

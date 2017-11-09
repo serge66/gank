@@ -114,7 +114,7 @@ var CommonStyles = StyleSheet.create({
     itemBottom:{
         fontSize:Util.getFontSize(15),
         color: 'black',
-        textAlign:'right',
+        // textAlign:'right',
         marginTop:Util.getHeight(2),
         textAlignVertical:'bottom',
         marginBottom:Util.getHeight(2),

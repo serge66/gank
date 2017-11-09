@@ -7,7 +7,7 @@ let mDispatch;
 let mTotalData = [];
 
 function _requestObj(num) {
-    return new Request('http://gank.io/api/data/Android/2/' + num, {
+    return new Request('http://gank.io/api/data/Android/10/' + num, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
