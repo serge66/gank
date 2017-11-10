@@ -12,6 +12,7 @@ import Android from '../views/AndroidView';
 import Utils from '../utils/Utils';
 import CustomDrawerContentComponent from './CustomDrawerContentComponent';
 import SearchView from "../views/SearchView";
+import DetailsView from "../views/DetailsView";
 
 const MyApp = DrawerNavigator({
     // All: {
@@ -130,6 +131,12 @@ const App = StackNavigator({
         navigationOptions: {
             headerTitle:'Search',
         },
+    },
+    Details:{
+        screen:DetailsView,
+        // navigationOptions:{
+        //     headerTitle:'Details'
+        // }
     }
 });
 

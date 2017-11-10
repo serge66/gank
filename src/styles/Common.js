@@ -17,7 +17,7 @@ var cell_w = Dimensions.get('window').width;
 
 function adaptiveTopiOS() {
     if (Platform.OS == 'ios') {
-        return 20
+        return 30
     } else {
         return 0
     }

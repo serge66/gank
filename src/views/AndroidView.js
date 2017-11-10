@@ -22,7 +22,7 @@ import ProgressComponent from '../components/ProgressComponent';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
-let isFirst = true;
+let isFirstRefresh;
 let thiz;
 
 class AndroidView extends Component {
@@ -33,6 +33,7 @@ class AndroidView extends Component {
     }
 
     componentDidMount() {
+        isFirstRefresh = true;
         this._refreshing();
     }
 
@@ -67,13 +68,14 @@ class AndroidView extends Component {
     _clickItem(item, index) {
         // alert(item.desc)
         // alert(index)
+        thiz.props.navigation.navigate('Details',{title:item.desc,url:item.url});
     }
 
     //返回itemView
     _renderItemView({item, index}) {
         return (
             <TouchableOpacity
-                style={[commonStyles.item,{height:Utils.getHeight(67)}]}
+                style={[commonStyles.item, {height: Utils.getHeight(67)}]}
                 key={item.index}
                 activeOpacity={1}
                 onPress={() => this._clickItem(item, index)}>
@@ -101,13 +103,19 @@ class AndroidView extends Component {
     }
 
     _footer() {
-       if(!thiz.props.android.isLoading){
-           return thiz._foot_no_loading();
-       }else{
-           return thiz._foot_loading();
-       }
+        //当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素
+        // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
+        // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题 isFirstRefresh
+        if (isFirstRefresh) {
+            return thiz._foot_no_loading();
+        } else if (!thiz.props.android.isLoading) {
+            return thiz._foot_no_loading();
+        } else {
+            return thiz._foot_loading();
+        }
     }
-    _foot_loading(){
+
+    _foot_loading() {
         return (
             <View style={{height: Utils.getHeight(50), flex: 1}}>
                 <ActivityIndicator
@@ -118,12 +126,14 @@ class AndroidView extends Component {
             </View>
         );
     }
-    _foot_no_loading(){
+
+    _foot_no_loading() {
         return (
             <View style={{height: Utils.getHeight(50), flex: 1}}>
             </View>
         );
     }
+
     _separator() {
         return (
             <View style={commonStyles.separator}>
@@ -222,6 +232,12 @@ class AndroidView extends Component {
 
     render() {
         console.log('----this.props.android.status:' + this.props.android.status);
+        //当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素
+        // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
+        // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题
+        if (this.props.android.status == 'done') {
+            isFirstRefresh = false;
+        }
         if (this.props.android.status == 'error') {
             //请求失败view
             return this.renderErrorView();
