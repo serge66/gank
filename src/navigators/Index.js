@@ -17,6 +17,8 @@ import CustomDrawerContentComponent from './CustomDrawerContentComponent';
 import SearchView from "../views/SearchView";
 import DetailsView from "../views/DetailsView";
 import GirlDetailView from '../views/GirlDetailView';
+import VideoView from '../views/VideoView';
+import MeView from '../views/MeView';
 
 const MyApp = DrawerNavigator({
     // All: {
@@ -76,7 +78,7 @@ const MyApp = DrawerNavigator({
         },
     },
     Video: {
-        screen: All,
+        screen: VideoView,
         navigationOptions: {
             drawerLabel: 'Video',
             drawerIcon: ({tintColor}) => (
@@ -87,7 +89,7 @@ const MyApp = DrawerNavigator({
         },
     },
     Me: {
-        screen: All,
+        screen: MeView,
         navigationOptions: {
             drawerLabel: 'Me',
             drawerIcon: ({tintColor}) => (
