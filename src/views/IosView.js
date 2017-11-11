@@ -25,7 +25,7 @@ let mCurPage;
 let isFirstRefresh;
 let thiz;
 
-class AndroidView extends Component {
+class IosView extends Component {
 
     componentWillMount() {
         thiz = this;
@@ -107,13 +107,10 @@ class AndroidView extends Component {
         // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
         // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题 isFirstRefresh
         if (isFirstRefresh) {
-            console.log('sssssssssssssssssssss1');
             return thiz._foot_no_loading();
         } else if (!thiz.props.android.isLoading) {
-            console.log('sssssssssssssssssssss2');
             return thiz._foot_no_loading();
         } else {
-            console.log('sssssssssssssssssssss3');
             return thiz._foot_loading();
         }
     }
@@ -161,7 +158,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: true,
             isLoading: false,
-            type:'Android',
+            type:'iOS',
         };
         thiz
             .props
@@ -176,7 +173,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: false,
             isLoading: true,
-            type:'Android',
+            type:'iOS',
         };
         thiz
             .props
@@ -200,7 +197,7 @@ class AndroidView extends Component {
         console.log(this.props.android)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='iOS'/>
                 <FlatList
                     showsVerticalScrollIndicator={true}//是否显示垂直滚动条
                     showsHorizontalScrollIndicator={false}//是否显示水平滚动条
@@ -294,4 +291,4 @@ function mapStateToProps(state) {
     return {android}
 }
 
-export default connect(mapStateToProps)(AndroidView);
+export default connect(mapStateToProps)(IosView);

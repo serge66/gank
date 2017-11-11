@@ -161,7 +161,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: true,
             isLoading: false,
-            type:'Android',
+            type:'前端',
         };
         thiz
             .props
@@ -176,7 +176,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: false,
             isLoading: true,
-            type:'Android',
+            type:'前端',
         };
         thiz
             .props
@@ -200,7 +200,7 @@ class AndroidView extends Component {
         console.log(this.props.android)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='JS'/>
                 <FlatList
                     showsVerticalScrollIndicator={true}//是否显示垂直滚动条
                     showsHorizontalScrollIndicator={false}//是否显示水平滚动条

@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import All from '../views/AllView';
 import Android from '../views/AndroidView';
+import Ios from '../views/IosView';
+import Javascript from '../views/JavascriptView';
 import Utils from '../utils/Utils';
 import CustomDrawerContentComponent from './CustomDrawerContentComponent';
 import SearchView from "../views/SearchView";
@@ -39,7 +41,7 @@ const MyApp = DrawerNavigator({
         },
     },
     iOS: {
-        screen: All,
+        screen: Ios,
         navigationOptions: {
             drawerLabel: 'iOS',
             drawerIcon: ({tintColor}) => (
@@ -50,7 +52,7 @@ const MyApp = DrawerNavigator({
         },
     },
     JS: {
-        screen: All,
+        screen: Javascript,
         navigationOptions: {
             drawerLabel: 'JS',
             drawerIcon: ({tintColor}) => (

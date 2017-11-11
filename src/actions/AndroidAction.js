@@ -6,8 +6,8 @@ import ToastUtils from '../utils/ToastUtils';
 let mDispatch;
 let mTotalData = [];
 
-function _requestObj(num) {
-    return new Request('http://gank.io/api/data/Android/10/' + num, {
+function _requestObj(opt) {
+    return new Request('http://gank.io/api/data/'+opt.type+'/10/' + opt.num, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -66,7 +66,7 @@ export function doDoing(opt) {
         }
         dispatch(android_doing(mTotalData,opt.isRefreshing,opt.isLoading));
 
-        let result = fetch(_requestObj(opt.num))
+        let result = fetch(_requestObj(opt))
             .then(_status)
             .then(_json)
             .then(_parseJson)
