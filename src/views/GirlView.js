@@ -19,13 +19,16 @@ import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
 import ProgressComponent from '../components/ProgressComponent';
+import Image from 'react-native-image-progress';
+// import ProgressBar from 'react-native-progress/Bar';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
 let isFirstRefresh;
 let thiz;
 
-class JavascriptView extends Component {
+
+class GirlView extends Component {
 
     componentWillMount() {
         thiz = this;
@@ -68,28 +71,27 @@ class JavascriptView extends Component {
     _clickItem(item, index) {
         // alert(item.desc)
         // alert(index)
-        thiz.props.navigation.navigate('Details',{title:item.desc,url:item.url});
+        thiz.props.navigation.navigate('GirlDetail', {title: item.desc, url: item.url});
     }
 
     //返回itemView
     _renderItemView({item, index}) {
         return (
             <TouchableOpacity
-                style={[commonStyles.item, {height: Utils.getHeight(67)}]}
+                style={[commonStyles.item, {height: Utils.getHeight(200)},
+                    {width: Utils.getWidth(Utils.size.width * 0.4)}]}
                 key={item.index}
                 activeOpacity={1}
                 onPress={() => this._clickItem(item, index)}>
 
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>
-                    {index + '     ' + item.desc}</Text>
+                <Image
+                    source={{uri: item.url}}
+                    indicator={ActivityIndicator}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                    }}/>
 
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(10)}
-                    style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
             </TouchableOpacity>
         );
     }
@@ -161,7 +163,8 @@ class JavascriptView extends Component {
             num: mCurPage,
             isRefreshing: true,
             isLoading: false,
-            type:'前端',
+            type: '福利',
+            isImage:true,
         };
         thiz
             .props
@@ -176,7 +179,8 @@ class JavascriptView extends Component {
             num: mCurPage,
             isRefreshing: false,
             isLoading: true,
-            type:'前端',
+            type: '福利',
+            isImage:true,
         };
         thiz
             .props
@@ -200,11 +204,11 @@ class JavascriptView extends Component {
         console.log(this.props.android)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='JS'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='Girl'/>
                 <FlatList
                     showsVerticalScrollIndicator={true}//是否显示垂直滚动条
                     showsHorizontalScrollIndicator={false}//是否显示水平滚动条
-                    numColumns={1}//每行显示1个
+                    numColumns={2}//每行显示1个
                     enableEmptySections={true}//数据可以为空
                     style={[commonStyles.bgColor, commonStyles.flex1]}
                     data={this._sourceData()}
@@ -228,7 +232,7 @@ class JavascriptView extends Component {
                     //如果设置了getItemLayout，那么renderItem的高度必须和这个高度一样，
                     // 否则加载一段列表后就会出现错乱和显示空白。
                     getItemLayout={(data, index) => (
-                        {length: Utils.getHeight(67), offset: Utils.getHeight(67) * index, index}
+                        {length: Utils.getHeight(200), offset: Utils.getHeight(200) * index, index}
                     )}
                 />
             </View>
@@ -294,4 +298,4 @@ function mapStateToProps(state) {
     return {android}
 }
 
-export default connect(mapStateToProps)(JavascriptView);
+export default connect(mapStateToProps)(GirlView);

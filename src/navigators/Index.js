@@ -11,10 +11,12 @@ import All from '../views/AllView';
 import Android from '../views/AndroidView';
 import Ios from '../views/IosView';
 import Javascript from '../views/JavascriptView';
+import GirlView from '../views/GirlView';
 import Utils from '../utils/Utils';
 import CustomDrawerContentComponent from './CustomDrawerContentComponent';
 import SearchView from "../views/SearchView";
 import DetailsView from "../views/DetailsView";
+import GirlDetailView from '../views/GirlDetailView';
 
 const MyApp = DrawerNavigator({
     // All: {
@@ -63,7 +65,7 @@ const MyApp = DrawerNavigator({
         },
     },
     Girl: {
-        screen: All,
+        screen: GirlView,
         navigationOptions: {
             drawerLabel: 'Girl',
             drawerIcon: ({tintColor}) => (
@@ -139,7 +141,10 @@ const App = StackNavigator({
         // navigationOptions:{
         //     headerTitle:'Details'
         // }
-    }
+    },
+    GirlDetail:{
+        screen:GirlDetailView,
+    },
 });
 
 const styles = StyleSheet.create({

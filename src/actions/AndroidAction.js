@@ -7,7 +7,9 @@ let mDispatch;
 let mTotalData = [];
 
 function _requestObj(opt) {
-    return new Request('http://gank.io/api/data/'+opt.type+'/10/' + opt.num, {
+
+    return new Request('http://gank.io/api/data/' + opt.type + '/10/' + opt.num
+        + (opt.isImage ? '?imageView2/0/w/100' : ''), {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -39,7 +41,7 @@ function _json(res) {
 function _parseJson(responseJson) {
     // console.log('androidview responsejson:' + responseJson);
     if (!responseJson.error) {
-        ToastUtils.show("网络连接成功");
+        // ToastUtils.show("网络连接成功");
         console.log('mTotalData  11111:-----');
         console.log(mTotalData);
 
@@ -61,10 +63,10 @@ function _catch(error) {
 export function doDoing(opt) {
     return (dispatch) => {
         mDispatch = dispatch;
-        if(opt.isRefreshing){
+        if (opt.isRefreshing) {
             mTotalData = [];
         }
-        dispatch(android_doing(mTotalData,opt.isRefreshing,opt.isLoading));
+        dispatch(android_doing(mTotalData, opt.isRefreshing, opt.isLoading));
 
         let result = fetch(_requestObj(opt))
             .then(_status)
@@ -75,9 +77,11 @@ export function doDoing(opt) {
     }
 }
 
-function android_doing(data,isRefreshing,isLoadging) {
-    return {type: Type.android.ANDROD_DOING, data: data,
-        isRefreshing:isRefreshing,isLoading:isLoadging}
+function android_doing(data, isRefreshing, isLoadging) {
+    return {
+        type: Type.android.ANDROD_DOING, data: data,
+        isRefreshing: isRefreshing, isLoading: isLoadging
+    }
 }
 
 function android_done(data) {
