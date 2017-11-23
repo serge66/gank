@@ -88,7 +88,7 @@ var CommonStyles = StyleSheet.create({
         // paddingRight:Util.getWidth(7),
         // paddingTop:Util.getHeight(5),
         // paddingBottom:Util.getHeight(5),
-        // justifyContent:'center',
+        justifyContent:'center',
         flex: 1,
         backgroundColor: 'white',
         padding: Util.getWidth(10),

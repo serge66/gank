@@ -19,20 +19,23 @@ import DetailsView from "../views/DetailsView";
 import GirlDetailView from '../views/GirlDetailView';
 import VideoView from '../views/VideoView';
 import MeView from '../views/MeView';
+import Recommendation from '../views/RecommendationView';
+import Resources from '../views/ResourcesView';
+import AppView from '../views/AppView';
 
 const MyApp = DrawerNavigator({
-    // All: {
-    //      screen: All,
-    //      navigationOptions: {
-    //          drawerLabel: 'All',
-    //          drawerIcon: ({tintColor}) => (
-    //              <Image
-    //                  source={require('../assets/img/icon_all.png')}
-    //                  style={[styles.icon, {tintColor: tintColor}]}/>
-    //          ),
-    //      },
-    //
-    //  },
+    All: {
+         screen: All,
+         navigationOptions: {
+             drawerLabel: 'All',
+             drawerIcon: ({tintColor}) => (
+                 <Image
+                     source={require('../assets/img/icon_all.png')}
+                     style={[styles.icon, {tintColor: tintColor}]}/>
+             ),
+         },
+
+     },
     Android: {
         screen: Android,
         navigationOptions: {
@@ -84,6 +87,39 @@ const MyApp = DrawerNavigator({
             drawerIcon: ({tintColor}) => (
                 <Image
                     source={require('../assets/img/icon_video.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}/>
+            ),
+        },
+    },
+    Recommendation: {
+        screen: Recommendation,
+        navigationOptions: {
+            drawerLabel: 'Recommendation',
+            drawerIcon: ({tintColor}) => (
+                <Image
+                    source={require('../assets/img/recommendation.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}/>
+            ),
+        },
+    },
+    Resources: {
+        screen: Resources,
+        navigationOptions: {
+            drawerLabel: 'Resources',
+            drawerIcon: ({tintColor}) => (
+                <Image
+                    source={require('../assets/img/resource.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}/>
+            ),
+        },
+    },
+    AppView: {
+        screen: AppView,
+        navigationOptions: {
+            drawerLabel: 'App',
+            drawerIcon: ({tintColor}) => (
+                <Image
+                    source={require('../assets/img/APP.png')}
                     style={[styles.icon, {tintColor: tintColor}]}/>
             ),
         },

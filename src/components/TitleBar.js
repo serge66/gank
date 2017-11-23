@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     container: {
         // flex: 1,
         width: Utils.size.width,
-        height: Utils.getHeight(50),
+        height: Utils.getHeight(60),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

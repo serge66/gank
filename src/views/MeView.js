@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    Linking
 } from 'react-native';
 import TitleBar from '../components/TitleBar';
 import commonStyles from "../styles/Common";
@@ -15,8 +16,14 @@ export default class MeView extends Component {
     _onClick(title,url) {
         this.props.navigation.navigate('Details',{title:title,url:url});
     }
-    _onClickOpenEmail(){
-
+    _onClickOpenEmail(url){
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                return Linking.openURL(url);
+            }
+        }).catch(err => console.error('An error occurred', err));
     }
 
     render() {
@@ -52,7 +59,7 @@ export default class MeView extends Component {
                         </Text>
                         <Text
                             style={styles.link}
-                            onPress={() => this._onClickOpenEmail('Email','lishengjiework@gmail.com')}>
+                            onPress={() => this._onClickOpenEmail("mailto:lishengjiework@gmail.com")}>
                             lishengjiework@gmail.com
                         </Text>
                     </Text>
