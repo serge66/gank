@@ -6,6 +6,11 @@ const types = {
         ANDROD_DONE: 'ANDROD_DONE',
         ANDROD_ERROR: 'ANDROD_ERROR',
     },
+    query: {
+        QUERY_DOING: 'QUERY_DOING',
+        QUERY_DONE: 'QUERY_DONE',
+        QUERY_ERROR: 'QUERY_ERROR',
+    },
 
     ios: {
         IOS_DOING: 'IOS_DOING',

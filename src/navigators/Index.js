@@ -170,9 +170,7 @@ const App = StackNavigator({
     },
     Search:{
         screen:SearchView,
-        navigationOptions: {
-            headerTitle:'Search',
-        },
+
     },
     Details:{
         screen:DetailsView,

@@ -8,12 +8,34 @@
  */
 
 #import "AppDelegate.h"
-
+#import "RCTLinkingManager.h"//增加用于打开Email lsj 2017-11-11 17:43:48 http://blog.csdn.net/liu__520/article/details/52851609
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
 @implementation AppDelegate
 
+//增加用于打开Email lsj 2017-11-11 17:43:48
+-(BOOL)application:(UIApplication*)application
+           openURL:(NSURL*)url
+ sourceApplication:(NSString*)sourceApplication
+        annotation:(id)annotation{
+  return[RCTLinkingManager
+         application:application
+         openURL:url
+         sourceApplication:sourceApplication
+         annotation:annotation];}
+//Only if your app is using [Universal Links]
+//(https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html).
+ -(BOOL)application:(UIApplication*)application
+ continueUserActivity:(NSUserActivity*)userActivity
+ restorationHandler:(void(^)(NSArray*
+                             _Nullable))restorationHandler{
+  return[RCTLinkingManager
+         application:application
+         continueUserActivity:userActivity
+         restorationHandler:restorationHandler];
+}
+ 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
