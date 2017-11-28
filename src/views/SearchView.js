@@ -16,7 +16,7 @@ import {
 import Utils from '../utils/Utils';
 // import {} from "react-navigation/lib/views/assets";
 import commonStyles from '../styles/Common';
-import {doDoing} from '../actions/QueryAction';
+import {doDoing} from '../redux/actions/QueryAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import ToastUtils from '../utils/ToastUtils';
@@ -279,9 +279,7 @@ class SearchView extends Component {
     }
 
     //此函数用于为给定的item生成一个不重复的key
-    _keyExtractor = (item, index) => {
-        (item.ganhuo_id + item.publishedAt)
-    };
+    _keyExtractor = (item, index) => item.ganhuo_id;
 
     renderData() {
         console.log(this.props.query)

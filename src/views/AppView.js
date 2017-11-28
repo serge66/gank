@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import TitleBar from '../components/TitleBar';
 import Utils from '../utils/Utils';
-import {doDoing} from '../actions/AndroidAction';
+import {doDoing} from '../redux/actions/AndroidAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";

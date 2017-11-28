@@ -1,15 +1,15 @@
 'use strict';
 
 import Type from './Types';
-import ToastUtils from '../utils/ToastUtils';
+import ToastUtils from '../../utils/ToastUtils';
 
 let mDispatch;
 let mTotalData = [];
 
 function _requestObj(opt) {
 
-    return new Request('http://gank.io/api/search/query/' + opt.content
-        + '/category/all/count/20/page/' + opt.num, {
+    return new Request('http://gank.io/api/data/' + opt.type + '/10/' + opt.num
+        + (opt.isImage ? '?imageView2/0/w/100' : ''), {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
@@ -44,22 +44,20 @@ function _parseJson(responseJson) {
         // ToastUtils.show("网络连接成功");
         console.log('mTotalData  11111:-----');
         console.log(mTotalData);
-        if (responseJson.results == null || responseJson.results.length == 0) {
-            ToastUtils.show('no data!')
-        }
+
         mTotalData = mTotalData.concat(responseJson.results);
-        mDispatch(query_done(mTotalData));
+        mDispatch(android_done(mTotalData));
         console.log('mTotalData  22222:-----');
         console.log(mTotalData);
     } else {
         ToastUtils.show("网络连接失败，请重连后重试");
-        mDispatch(query_error(mTotalData));
+        mDispatch(android_error(mTotalData));
     }
 }
 
 function _catch(error) {
     // console.error(error); ToastUtils.show("网络连接失败，请重连后重试");
-    mDispatch(query_error(mTotalData));
+    mDispatch(android_error(mTotalData));
 }
 
 export function doDoing(opt) {
@@ -68,7 +66,7 @@ export function doDoing(opt) {
         if (opt.isRefreshing) {
             mTotalData = [];
         }
-        dispatch(query_doing(mTotalData, opt.isRefreshing, opt.isLoading));
+        dispatch(android_doing(mTotalData, opt.isRefreshing, opt.isLoading));
 
         let result = fetch(_requestObj(opt))
             .then(_status)
@@ -79,17 +77,17 @@ export function doDoing(opt) {
     }
 }
 
-function query_doing(data, isRefreshing, isLoadging) {
+function android_doing(data, isRefreshing, isLoadging) {
     return {
-        type: Type.query.QUERY_DOING, data: data,
+        type: Type.android.ANDROD_DOING, data: data,
         isRefreshing: isRefreshing, isLoading: isLoadging
     }
 }
 
-function query_done(data) {
-    return {type: Type.query.QUERY_DONE, data: data}
+function android_done(data) {
+    return {type: Type.android.ANDROD_DONE, data: data}
 }
 
-function query_error(data) {
-    return {type: Type.query.QUERY_ERROR, data: data}
+function android_error(data) {
+    return {type: Type.android.ANDROD_ERROR, data: data}
 }
