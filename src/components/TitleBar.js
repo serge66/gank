@@ -11,31 +11,36 @@ import {
 import Utils from '../utils/Utils';
 import CommonStyles from '../styles/Common';
 
-var TitleBar = React.createClass({
+
+export default class TitleBar extends React.Component {
+
+    // getDefaultProps() {
+    //     return {
+    //         propsPara: null,
+    //     }
+    // },
+    static defaultProps = {
+        propsPara: null,
+    }
 
     _search() {
         this.props.propsPara('Search'); // open drawer
 
-    },
+    }
 
     _menu() {
         this.props.propsPara('DrawerOpen'); // open drawer
         // this.props.navigation.navigate('DrawerClose'); // close drawer
-    },
+    }
 
-    getDefaultProps() {
-        return {
-            propsPara: null,
-        }
-    },
 
     componentWillMount() {
 
-    },
+    }
 
     render() {
         return (
-            <View style={[styles.container,CommonStyles.adaptiveTopiOS]}>
+            <View style={[styles.container, CommonStyles.adaptiveTopiOS]}>
                 <View>
                     <TouchableOpacity
                         activeOpacity={global.constants.ActiveOpacityNum}
@@ -60,7 +65,7 @@ var TitleBar = React.createClass({
             </View>
         );
     }
-})
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -73,9 +78,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         paddingLeft: Utils.getWidth(15),
         paddingRight: Utils.getWidth(15),
-        borderBottomWidth:Utils.getHeight(1),
-        borderBottomColor:'#cccccc',
-        paddingTop:Utils.getHeight(20),
+        borderBottomWidth: Utils.getHeight(1),
+        borderBottomColor: '#cccccc',
+        paddingTop: Utils.getHeight(20),
     },
     img: {
         width: Utils.getWidth(20),
@@ -88,5 +93,3 @@ const styles = StyleSheet.create({
         fontSize: Utils.getWidth(17),
     },
 });
-
-export default TitleBar;

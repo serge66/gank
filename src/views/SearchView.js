@@ -20,6 +20,7 @@ import {doDoing} from '../redux/actions/QueryAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import ToastUtils from '../utils/ToastUtils';
+import MyItem from '../components/MyItem';
 
 let mCurPage;
 let isFirstRefresh;
@@ -46,8 +47,8 @@ class SearchView extends Component {
                     // 如果将blurOnSubmit设为true，则在按下回车键时就会失去焦点同时触发onSubmitEditing事件，而不会换行。
                     blurOnSubmit={true}
                     placeholder={'search'}
-                    inlineImageLeft={'react-navigation/lib/views/assets/back-icon.png'}//指定一个图片放置在左侧。
-                    inlineImagePadding={10}//给放置在左侧的图片设置padding样式
+                    // inlineImageLeft={'react-navigation/lib/views/assets/back-icon.png'}//指定一个图片放置在左侧。
+                    // inlineImagePadding={10}//给放置在左侧的图片设置padding样式
                     returnKeyLabel={'search'}//将软键盘返回键上的文字设置为指定的 label。可以用它来代替 returnKeyType. android
                     returnKeyType={'search'}//决定“确定”按钮显示的内容。 ios
                     // clearButtonMode={'always'}//是否要在文本框右侧显示“清除”按钮。ios('never', 'while-editing', 'unless-editing', 'always')
@@ -126,33 +127,18 @@ class SearchView extends Component {
         );
     }
 
-    //点击列表点击每一行
-    _clickItem(item, index) {
-        // alert(item.desc)
-        // alert(index)
-        thiz.props.navigation.navigate('Details', {title: item.desc, url: item.url});
-    }
-
     //返回itemView
     _renderItemView({item, index}) {
         return (
-            <TouchableOpacity
-                style={[commonStyles.item, {height: Utils.getHeight(67)}]}
+            <MyItem
+                noImg={true}
+                propsNavigate={this.props.navigation.navigate}
+                url={item.url}
                 key={item.index}
-                activeOpacity={1}
-                onPress={() => this._clickItem(item, index)}>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>
-                    {index + '     ' + item.desc}</Text>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(10)}
-                    style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
-            </TouchableOpacity>
+                desc={item.desc}
+                who={item.who}
+                publishedAt={item.publishedAt.substring(0,10)}
+            />
         );
     }
 

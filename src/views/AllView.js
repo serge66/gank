@@ -22,6 +22,7 @@ import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
 import ProgressComponent from '../components/ProgressComponent';
+import MyItem from '../components/MyItem';
 
 let mCurPage;
 let isFirstRefresh;
@@ -75,42 +76,117 @@ class AllView extends Component {
 
     //返回itemView
     _renderItemView({item, index}) {
-        if ('福利' == item.type) {
-            return (
-                <TouchableOpacity
-                    style={[commonStyles.item, {height: Utils.getHeight(300)}]}
-                    key={item.index}
-                    activeOpacity={1}
-                    onPress={() => this._clickItem(item, index)}>
-                    <Image
-                        source={{uri: item.url}}
-                        indicator={ActivityIndicator}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                        }}/>
-                </TouchableOpacity>
-            );
-        } else {
-            return (
-                <TouchableOpacity
-                    style={[commonStyles.item, {height: Utils.getHeight(67)}]}
-                    key={item.index}
-                    activeOpacity={1}
-                    onPress={() => this._clickItem(item, index)}>
 
-                    <Text
-                        numberOfLines={1}
-                        lineHeight={Utils.getHeight(20)}
-                        style={commonStyles.itemTop}>
-                        {index + '     ' + item.desc}</Text>
+        switch (item.type) {
+            case '福利':
+                return (
+                    <TouchableOpacity
+                        style={[commonStyles.item, {height: Utils.getHeight(300)}]}
+                        key={item.index}
+                        activeOpacity={1}
+                        onPress={() => this._clickItem(item, index)}>
+                        <Image
+                            source={{uri: item.url}}
+                            indicator={ActivityIndicator}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}/>
+                    </TouchableOpacity>
+                );
+                break;
+            case '休息视频':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'休息视频'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
+            case '瞎推荐':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'瞎推荐'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
+            case 'Android':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'Android'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
+            case '前端':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'前端'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
+            case 'iOS':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'iOS'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
 
-                    <Text
-                        numberOfLines={1}
-                        lineHeight={Utils.getHeight(10)}
-                        style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
-                </TouchableOpacity>
-            );
+                break;
+            case '拓展资源':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'拓展资源'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
+            case 'App':
+                return (
+                    <MyItem
+                        propsNavigate={this.props.navigation.navigate}
+                        type={'App'}
+                        key={item.index}
+                        desc={item.desc}
+                        who={item.who}
+                        url={item.url}
+                        publishedAt={item.publishedAt.substring(0,10)}
+                    />
+                )
+                break;
         }
 
     }
@@ -328,7 +404,18 @@ const styles = StyleSheet.create({
     content: {
         fontSize: Utils.getFontSize(15),
         color: 'black'
-    }
+    },
+    img: {
+        height: Utils.getHeight(20),
+        width: Utils.getWidth(20),
+    },
+    myView: {
+        height: Utils.getHeight(40),
+        width: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
 
 });
 

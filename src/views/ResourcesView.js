@@ -16,6 +16,7 @@ import {doDoing} from '../redux/actions/AndroidAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
+import MyItem from '../components/MyItem';
 
 let mCurPage;
 let isFirstRefresh;
@@ -60,33 +61,18 @@ class ResourcesView extends Component {
         );
     }
 
-    //点击列表点击每一行
-    _clickItem(item, index) {
-        // alert(item.desc)
-        // alert(index)
-        thiz.props.navigation.navigate('Details',{title:item.desc,url:item.url});
-    }
-
     //返回itemView
     _renderItemView({item, index}) {
         return (
-            <TouchableOpacity
-                style={[commonStyles.item, {height: Utils.getHeight(67)}]}
+            <MyItem
+                noImg={true}
+                propsNavigate={this.props.navigation.navigate}
+                url={item.url}
                 key={item.index}
-                activeOpacity={1}
-                onPress={() => this._clickItem(item, index)}>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>
-                    {index + '     ' + item.desc}</Text>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(10)}
-                    style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
-            </TouchableOpacity>
+                desc={item.desc}
+                who={item.who}
+                publishedAt={item.publishedAt.substring(0,10)}
+            />
         );
     }
 

@@ -119,6 +119,14 @@ var CommonStyles = StyleSheet.create({
         textAlignVertical:'bottom',
         marginBottom:Util.getHeight(2),
     },
+    itemBottomRight:{
+        fontSize:Util.getFontSize(15),
+        color: 'black',
+        textAlign:'right',
+        marginTop:Util.getHeight(2),
+        textAlignVertical:'bottom',
+        marginBottom:Util.getHeight(2),
+    },
     separator:{
         backgroundColor:'#cccccccc',
         height:Util.getHeight(0.5),

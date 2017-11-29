@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
 import ProgressComponent from '../components/ProgressComponent';
+import MyItem from '../components/MyItem';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
@@ -68,29 +69,21 @@ class AndroidView extends Component {
     _clickItem(item, index) {
         // alert(item.desc)
         // alert(index)
-        thiz.props.navigation.navigate('Details',{title:item.desc,url:item.url});
+        thiz.props.navigation.navigate('Details', {title: item.desc, url: item.url});
     }
 
     //返回itemView
     _renderItemView({item, index}) {
         return (
-            <TouchableOpacity
-                style={[commonStyles.item, {height: Utils.getHeight(67)}]}
+            <MyItem
+                noImg={true}
+                propsNavigate={this.props.navigation.navigate}
+                url={item.url}
                 key={item.index}
-                activeOpacity={1}
-                onPress={() => this._clickItem(item, index)}>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(20)}
-                    style={commonStyles.itemTop}>
-                    {index + '     ' + item.desc}</Text>
-
-                <Text
-                    numberOfLines={1}
-                    lineHeight={Utils.getHeight(10)}
-                    style={commonStyles.itemBottom}>⟨{item.who}⟩</Text>
-            </TouchableOpacity>
+                desc={item.desc}
+                who={item.who}
+                publishedAt={item.publishedAt.substring(0,10)}
+            />
         );
     }
 
@@ -161,7 +154,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: true,
             isLoading: false,
-            type:'Android',
+            type: 'Android',
         };
         thiz
             .props
@@ -176,7 +169,7 @@ class AndroidView extends Component {
             num: mCurPage,
             isRefreshing: false,
             isLoading: true,
-            type:'Android',
+            type: 'Android',
         };
         thiz
             .props
