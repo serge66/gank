@@ -85,9 +85,12 @@ const MyApp = DrawerNavigator({
         navigationOptions: {
             drawerLabel: 'Video',
             drawerIcon: ({tintColor}) => (
+                <View style={[styles.icon]}>
                 <Image
+                    resizeMode={'contain'}
                     source={require('../assets/img/icon_video.png')}
                     style={[styles.icon, {tintColor: tintColor}]}/>
+                </View>
             ),
         },
     },
@@ -191,7 +194,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     icon: {
-        // padding: 2,
+        // padding: 8,
         width:Utils.getWidth(30),
         height:Utils.getHeight(30),
     },
