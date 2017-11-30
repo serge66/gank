@@ -139,7 +139,7 @@ const MyApp = DrawerNavigator({
     drawerWidth: Utils.size.width / 4 * 3,
     drawerPosition: 'left',
     backBehavior: 'initialRoute',
-    contentComponent: props => <CustomDrawerContentComponent {...props}/>,
+    contentComponent: props => (<CustomDrawerContentComponent items={props} />),
     contentOptions: {
         initialRouteName: 'All',
         activeItemKey: 'All',//识别活动路线的钥匙

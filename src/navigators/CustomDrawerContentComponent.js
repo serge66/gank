@@ -9,25 +9,67 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
+import {connect} from "react-redux";
 
-const CustomDrawerContentComponent = (props) => (
-    <View style={styles.container}>
-        <ScrollView>
-            <View>
-                <View style={{backgroundColor: '#ffff'}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            // props.navigation.navigate('All');
-                        }}>
-                        <Text style={styles.titleMsg}>个人照片</Text>
-                        <Image source={require('../assets/img/icon_me.png')} style={styles.img}/>
-                    </TouchableOpacity>
-                </View>
-                <DrawerItems {...props}/>
+
+class CustomDrawerContentComponent extends React.Component {
+
+    render() {
+        var myIcon = require('../assets/img/icon_me.png');
+        console.log('抽屉 加载图片 start')
+        console.log(this)
+        // console.log(android)
+
+        if (this && this.props && this.props.android && this.props.android.data) {
+            console.log('抽屉 加载图片 doing')
+
+            for (let index in this.props.android.data) {
+                if ('福利' == this.props.android.data[index].type) {
+                    myIcon = {uri: '' + this.props.android.data[index].url};
+                    console.log('抽屉 加载图片 success')
+                    console.log('抽屉 加载图片 success ' + this.props.android.data[index].url)
+                    return (
+                        <View style={styles.container}>
+                            <ScrollView>
+                                <View>
+                                    <View style={{backgroundColor: '#ffff'}}>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                // props.navigation.navigate('All');
+                                            }}>
+                                            <Text style={styles.titleMsg}>Gank</Text>
+                                            <Image source={{uri: this.props.android.data[index].url}}
+                                                   style={styles.img}/>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <DrawerItems {...this.props.items}/>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    )
+                }
+            }
+        }
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    <View>
+                        <View style={{backgroundColor: '#ffff'}}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    // props.navigation.navigate('All');
+                                }}>
+                                <Text style={styles.titleMsg}>Gank</Text>
+                                <Image source={myIcon} style={styles.img}/>
+                            </TouchableOpacity>
+                        </View>
+                        <DrawerItems {...this.props.items}/>
+                    </View>
+                </ScrollView>
             </View>
-        </ScrollView>
-    </View>
-);
+        )
+    }
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -49,4 +91,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CustomDrawerContentComponent;
+//mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。
+function mapStateToProps(state) {
+    const {android} = state;
+    return {android}
+}
+
+export default connect(mapStateToProps)(CustomDrawerContentComponent);
