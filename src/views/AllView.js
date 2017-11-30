@@ -2,9 +2,7 @@
 
 import React, {Component} from "react";
 import {
-    Animated,
     FlatList,
-    ScrollView,
     StyleSheet,
     Text,
     View,
@@ -12,16 +10,13 @@ import {
     RefreshControl,
     ActivityIndicator,
     Image,
-    SectionList
 } from "react-native";
 import TitleBar from '../components/TitleBar';
 import Utils from '../utils/Utils';
-import {doDoing} from '../redux/actions/AndroidAction';
+import {doDoing} from '../redux/actions/AllAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
-import ToastUtils from "../utils/ToastUtils";
-import ProgressComponent from '../components/ProgressComponent';
 import MyItem from '../components/MyItem';
 
 let mCurPage;
@@ -41,7 +36,7 @@ class AllView extends Component {
     }
 
     componentDidUpdate() {
-        // if (this.props.android && this.props.android.data) {
+        // if (this.props.all && this.props.all.data) {
         //     isFirst = false;
         // }
     }
@@ -50,7 +45,7 @@ class AllView extends Component {
         return (
             <View>
                 <TitleBar propsPara={this.props.navigation.navigate} title='All'/>
-                <Progress visible={this.props.android.isRefreshing || this.props.android.isLoading}/>
+                <Progress visible={this.props.all.isRefreshing || this.props.all.isLoading}/>
             </View>
         );
     }
@@ -228,7 +223,7 @@ class AllView extends Component {
         if (isFirstRefresh) {
             console.log('sssssssssssssssssssss1');
             return thiz._foot_no_loading();
-        } else if (!thiz.props.android.isLoading) {
+        } else if (!thiz.props.all.isLoading) {
             console.log('sssssssssssssssssssss2');
             return thiz._foot_no_loading();
         } else {
@@ -304,9 +299,9 @@ class AllView extends Component {
     }
 
     _sourceData() {
-        if (this.props.android && this.props.android.data) {
+        if (this.props.all && this.props.all.data) {
             // isFirst = false;
-            return this.props.android.data
+            return this.props.all.data
         } else {
             return null
         }
@@ -316,7 +311,7 @@ class AllView extends Component {
     _keyExtractor = (item, index) => item._id;
 
     renderData() {
-        console.log(this.props.android)
+        console.log(this.props.all)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='All'/>
@@ -326,7 +321,7 @@ class AllView extends Component {
                     numColumns={1}//每行显示1个
                     enableEmptySections={true}//数据可以为空
                     style={[commonStyles.bgColor, commonStyles.flex1]}
-                    data={this.props.android.data}
+                    data={this.props.all.data}
                     renderItem={this._renderItemView.bind(this)}
                     //renderSectionHeader={this._renderSectionHeader}
                     //ListHeaderComponent={this._header}
@@ -337,7 +332,7 @@ class AllView extends Component {
                     keyExtractor={this._keyExtractor}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.props.android.isRefreshing}
+                            refreshing={this.props.all.isRefreshing}
                             onRefresh={this._refreshing}//此处需要的是方法 _regreshing后面不能有()
                         />
                     }
@@ -356,17 +351,17 @@ class AllView extends Component {
     }
 
     render() {
-        console.log('----this.props.android.status:' + this.props.android.status);
+        console.log('----this.props.all.status:' + this.props.all.status);
         //当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素
         // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
         // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题
-        if (this.props.android.status == 'success') {
+        if (this.props.all.status == 'success') {
             isFirstRefresh = false;
         }
-        if (this.props.android.status == 'error') {
+        if (this.props.all.status == 'error') {
             //请求失败view
             return this.renderErrorView();
-        } else if (this.props.android.status == 'init') {
+        } else if (this.props.all.status == 'init') {
             return null;
         }
         //加载数据
@@ -421,8 +416,8 @@ const styles = StyleSheet.create({
 
 //mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。
 function mapStateToProps(state) {
-    const {android} = state;
-    return {android}
+    const {all} = state;
+    return {all}
 }
 
 export default connect(mapStateToProps)(AllView);

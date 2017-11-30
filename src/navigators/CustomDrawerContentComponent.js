@@ -18,16 +18,16 @@ class CustomDrawerContentComponent extends React.Component {
         var myIcon = require('../assets/img/icon_me.png');
         console.log('抽屉 加载图片 start')
         console.log(this)
-        // console.log(android)
+        // console.log(all)
 
-        if (this && this.props && this.props.android && this.props.android.data) {
+        if (this && this.props && this.props.all && this.props.all.data) {
             console.log('抽屉 加载图片 doing')
 
-            for (let index in this.props.android.data) {
-                if ('福利' == this.props.android.data[index].type) {
-                    myIcon = {uri: '' + this.props.android.data[index].url};
+            for (let index in this.props.all.data) {
+                if ('福利' == this.props.all.data[index].type) {
+                    myIcon = {uri: '' + this.props.all.data[index].url};
                     console.log('抽屉 加载图片 success')
-                    console.log('抽屉 加载图片 success ' + this.props.android.data[index].url)
+                    console.log('抽屉 加载图片 success ' + this.props.all.data[index].url)
                     return (
                         <View style={styles.container}>
                             <ScrollView>
@@ -38,7 +38,7 @@ class CustomDrawerContentComponent extends React.Component {
                                                 // props.navigation.navigate('All');
                                             }}>
                                             <Text style={styles.titleMsg}>Gank</Text>
-                                            <Image source={{uri: this.props.android.data[index].url}}
+                                            <Image source={{uri: this.props.all.data[index].url}}
                                                    style={styles.img}/>
                                         </TouchableOpacity>
                                     </View>
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
 
 //mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。
 function mapStateToProps(state) {
-    const {android} = state;
-    return {android}
+    const {all} = state;
+    return {all}
 }
 
 export default connect(mapStateToProps)(CustomDrawerContentComponent);

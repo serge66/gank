@@ -3,7 +3,6 @@ import React, {Component} from "react";
 import {
     Animated,
     FlatList,
-    ScrollView,
     StyleSheet,
     Text,
     View,
@@ -13,7 +12,7 @@ import {
 } from "react-native";
 import TitleBar from '../components/TitleBar';
 import Utils from '../utils/Utils';
-import {doDoing} from '../redux/actions/AndroidAction';
+import {doDoing} from '../redux/actions/GirlAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
@@ -41,7 +40,7 @@ class GirlView extends Component {
     }
 
     componentDidUpdate() {
-        // if (this.props.android && this.props.android.data) {
+        // if (this.props.girl && this.props.girl.data) {
         //     isFirst = false;
         // }
     }
@@ -49,8 +48,8 @@ class GirlView extends Component {
     renderLoadingView() {
         return (
             <View>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-                <Progress visible={this.props.android.isRefreshing || this.props.android.isLoading}/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='girl'/>
+                <Progress visible={this.props.girl.isRefreshing || this.props.girl.isLoading}/>
             </View>
         );
     }
@@ -59,7 +58,7 @@ class GirlView extends Component {
     renderErrorView() {
         return (
             <View style={[styles.container, commonStyles.bgColor]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='girl'/>
                 <Text style={styles.errorText}>
                     网络连接出错,请检查后重试!
                 </Text>
@@ -111,7 +110,7 @@ class GirlView extends Component {
         if (isFirstRefresh) {
             console.log('sssssssssssssssssssss1');
             return thiz._foot_no_loading();
-        } else if (!thiz.props.android.isLoading) {
+        } else if (!thiz.props.girl.isLoading) {
             console.log('sssssssssssssssssssss2');
             return thiz._foot_no_loading();
         } else {
@@ -189,9 +188,9 @@ class GirlView extends Component {
     }
 
     _sourceData() {
-        if (this.props.android && this.props.android.data) {
+        if (this.props.girl && this.props.girl.data) {
             // isFirst = false;
-            return this.props.android.data
+            return this.props.girl.data
         } else {
             return null
         }
@@ -201,7 +200,7 @@ class GirlView extends Component {
     _keyExtractor = (item, index) => item._id;
 
     renderData() {
-        console.log(this.props.android)
+        console.log(this.props.girl)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='Girl'/>
@@ -221,7 +220,7 @@ class GirlView extends Component {
                     keyExtractor={this._keyExtractor}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.props.android.isRefreshing}
+                            refreshing={this.props.girl.isRefreshing}
                             onRefresh={this._refreshing}//此处需要的是方法 _regreshing后面不能有()
                         />
                     }
@@ -240,17 +239,17 @@ class GirlView extends Component {
     }
 
     render() {
-        console.log('----this.props.android.status:' + this.props.android.status);
+        console.log('----this.props.girl.status:' + this.props.girl.status);
         //当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素
         // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
         // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题
-        if (this.props.android.status == 'success') {
+        if (this.props.girl.status == 'success') {
             isFirstRefresh = false;
         }
-        if (this.props.android.status == 'error') {
+        if (this.props.girl.status == 'error') {
             //请求失败view
             return this.renderErrorView();
-        } else if (this.props.android.status == 'init') {
+        } else if (this.props.girl.status == 'init') {
             return null;
         }
         //加载数据
@@ -294,8 +293,8 @@ const styles = StyleSheet.create({
 
 //mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。
 function mapStateToProps(state) {
-    const {android} = state;
-    return {android}
+    const {girl} = state;
+    return {girl}
 }
 
 export default connect(mapStateToProps)(GirlView);

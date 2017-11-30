@@ -15,8 +15,8 @@ const initialState = {
 
 export default function loginIn(state = initialState, action) {
     switch (action.type) {
-        case Types.query.QUERY_DOING:
-            console.log('reducers query: doing');
+        case Types.app.APP_DOING:
+            console.log('reducers app: doing');
             return {
                 ...state,
                 status: 'doing',
@@ -26,8 +26,8 @@ export default function loginIn(state = initialState, action) {
                 isLoading:action.isLoading,
             }
             break;
-        case Types.query.QUERY_DONE:
-            console.log('reducers query: success');
+        case Types.app.APP_DONE:
+            console.log('reducers app: success');
             return {
                 ...state,
                 status: 'success',
@@ -37,8 +37,8 @@ export default function loginIn(state = initialState, action) {
                 isLoading:false,
             }
             break;
-        case Types.query.QUERY_ERROR:
-            console.log('reducers query: error');
+        case Types.app.APP_ERROR:
+            console.log('reducers app: error');
             return {
                 ...state,
                 status: 'error',
@@ -49,7 +49,7 @@ export default function loginIn(state = initialState, action) {
             }
             break;
         default:
-            console.log('reducers query: default');
+            console.log('reducers app: default');
             return state;
 
     }

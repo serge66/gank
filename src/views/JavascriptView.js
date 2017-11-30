@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import TitleBar from '../components/TitleBar';
 import Utils from '../utils/Utils';
-import {doDoing} from '../redux/actions/AndroidAction';
+import {doDoing} from '../redux/actions/JsAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
@@ -39,7 +39,7 @@ class JavascriptView extends Component {
     }
 
     componentDidUpdate() {
-        // if (this.props.android && this.props.android.data) {
+        // if (this.props.js && this.props.js.data) {
         //     isFirst = false;
         // }
     }
@@ -47,8 +47,8 @@ class JavascriptView extends Component {
     renderLoadingView() {
         return (
             <View>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
-                <Progress visible={this.props.android.isRefreshing || this.props.android.isLoading}/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='js'/>
+                <Progress visible={this.props.js.isRefreshing || this.props.js.isLoading}/>
             </View>
         );
     }
@@ -57,7 +57,7 @@ class JavascriptView extends Component {
     renderErrorView() {
         return (
             <View style={[styles.container, commonStyles.bgColor]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Android'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='js'/>
                 <Text style={styles.errorText}>
                     网络连接出错,请检查后重试!
                 </Text>
@@ -95,7 +95,7 @@ class JavascriptView extends Component {
         if (isFirstRefresh) {
             console.log('sssssssssssssssssssss1');
             return thiz._foot_no_loading();
-        } else if (!thiz.props.android.isLoading) {
+        } else if (!thiz.props.js.isLoading) {
             console.log('sssssssssssssssssssss2');
             return thiz._foot_no_loading();
         } else {
@@ -171,9 +171,9 @@ class JavascriptView extends Component {
     }
 
     _sourceData() {
-        if (this.props.android && this.props.android.data) {
+        if (this.props.js && this.props.js.data) {
             // isFirst = false;
-            return this.props.android.data
+            return this.props.js.data
         } else {
             return null
         }
@@ -183,7 +183,7 @@ class JavascriptView extends Component {
     _keyExtractor = (item, index) => item._id;
 
     renderData() {
-        console.log(this.props.android)
+        console.log(this.props.js)
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='JS'/>
@@ -203,7 +203,7 @@ class JavascriptView extends Component {
                     keyExtractor={this._keyExtractor}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.props.android.isRefreshing}
+                            refreshing={this.props.js.isRefreshing}
                             onRefresh={this._refreshing}//此处需要的是方法 _regreshing后面不能有()
                         />
                     }
@@ -222,17 +222,17 @@ class JavascriptView extends Component {
     }
 
     render() {
-        console.log('----this.props.android.status:' + this.props.android.status);
+        console.log('----this.props.js.status:' + this.props.js.status);
         //当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素
         // 的距离时调用。原生的滚动事件会被作为参数传递。译注：当第一次渲染时，如果数据不足一屏（比如初始值是空的），
         // 这个事件也会被触发，请自行做标记过滤。 下面这个标记尚未彻底解决问题
-        if (this.props.android.status == 'success') {
+        if (this.props.js.status == 'success') {
             isFirstRefresh = false;
         }
-        if (this.props.android.status == 'error') {
+        if (this.props.js.status == 'error') {
             //请求失败view
             return this.renderErrorView();
-        } else if (this.props.android.status == 'init') {
+        } else if (this.props.js.status == 'init') {
             return null;
         }
         //加载数据
@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
 
 //mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。
 function mapStateToProps(state) {
-    const {android} = state;
-    return {android}
+    const {js} = state;
+    return {js}
 }
 
 export default connect(mapStateToProps)(JavascriptView);
