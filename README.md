@@ -14,8 +14,9 @@
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_AllView.gif)
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_iOSView.gif)
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_GirlView.gif)
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_VideoView.gif)
 
-#### Desc
+#### Getting started
 
     Support
         iOS & Android
