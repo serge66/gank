@@ -1,9 +1,10 @@
 # gank
 
 
- iOS:
-    ![Image ios](https://github.com/serge66/gank/blob/master/screenshots/ios_allView_8.8M.gif)
-    ![Image ios](https://github.com/serge66/gank/blob/master/screenshots/ios_allView.gif)
+
+#### iOS Preview:
+-
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_allView.gif)
 
 
 
