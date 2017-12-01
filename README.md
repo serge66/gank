@@ -5,7 +5,9 @@
 #### iOS Preview:
 -
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_allView.gif)
-
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_androidview.gif)
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_girlview.gif)
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_videoview.gif)
 
 
 #### Desc
