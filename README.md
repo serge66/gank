@@ -1,10 +1,12 @@
 # gank
 
-    iOS:
 
-    ---
-    ![image](https://github.com/serge66/gank/blob/master/screenshots/ios_allView_8.8M.gif)
-    ![image](https://github.com/serge66/gank/blob/master/screenshots/ios_allView.gif)
+ iOS:
+    ![Image ios](https://github.com/serge66/gank/blob/master/screenshots/ios_allView_8.8M.gif)
+    ![Image ios](https://github.com/serge66/gank/blob/master/screenshots/ios_allView.gif)
+
+
+
 
     Support
         iOS & Android
