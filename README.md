@@ -9,6 +9,11 @@
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_girlview.gif)
     ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/ios_videoview.gif)
 
+#### Android Preview:
+-
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_AllView.gif)
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_iOSView.gif)
+    ![Image iOS](https://github.com/serge66/gank/blob/master/screenshots/Android_GirlView.gif)
 
 #### Desc
 
