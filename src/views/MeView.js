@@ -5,11 +5,14 @@ import {
     StyleSheet,
     Text,
     View,
-    Linking
+    Linking,
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import TitleBar from '../components/TitleBar';
-import commonStyles from "../styles/Common";
+import CommonStyles from "../styles/Common";
 import ClickUtil from "../utils/ClickUtil";
+import Utils from "../utils/Utils";
 
 export default class MeView extends Component {
 
@@ -31,9 +34,21 @@ export default class MeView extends Component {
 
     render() {
         return (
-            <View style={[commonStyles.bgColor, commonStyles.flex1]}>
+            <View style={[CommonStyles.bgColor, CommonStyles.flex1]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='About'/>
                 <View style={styles.container}>
+                    <View>
+                        <TouchableOpacity style={styles.touchable}
+                                          activeOpacity={global.constants.ActiveOpacityNum}
+                                          onPress={() => {
+                                              // this.props.items.navigation.navigate('All');
+                                          }}>
+                            <Text style={[styles.titleMsg]}>Gank</Text>
+                            <Image
+                                resizeMode={'contain'}
+                                source={require('../assets/img/gank.png')} style={styles.img}/>
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.welcome}>
                         <Text>
                             CSDN:
@@ -92,7 +107,6 @@ export default class MeView extends Component {
                     </Text>
                 </View>
             </View>
-
         );
     }
 }
@@ -108,14 +122,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     welcome: {
-        fontSize: 16,
+        fontSize: Utils.getFontSize(16),
         textAlign: 'center',
         margin: 10,
     },
     instructions: {
         textAlign: 'center',
         color: '#333333',
-        marginBottom: 5,
+        marginBottom: Utils.getWidth(5),
     },
+    touchable: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // height:'100%',
+        width: '100%',
+    },
+    img: {
+        height: Utils.getHeight(200),
+        width: Utils.getWidth(200),
+    },
+    titleMsg: {
+        textAlign: 'center',
+        color: '#000',
+        // paddingTop: 30,
+        paddingBottom: Utils.getWidth(5),
+        fontSize: Utils.getFontSize(30)
+    }
 });
 

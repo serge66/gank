@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     img: {
-        height: 200,
-        width: 200,
+        height: Utils.getHeight(200),
+        width: Utils.getWidth(200),
     },
     titleMsg: {
         textAlign: 'center',
         color: '#000',
         // paddingTop: 30,
-        paddingBottom: 5,
+        paddingBottom: Utils.getHeight(5),
         fontSize: Utils.getFontSize(20)
     }
 });
