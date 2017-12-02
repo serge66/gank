@@ -35,7 +35,8 @@
 
     Installation
         git clone https://github.com/serge66/gank.git
-        cd gank & npm install
+        cd gank
+        npm install
 
     Run
         react-native run-ios
