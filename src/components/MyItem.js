@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Utils from "../utils/Utils";
 import CommonStyles from '../styles/Common';
+import ClickUtil from "../utils/ClickUtil";
 
 
 export default class MyItem extends React.Component {
@@ -22,6 +23,9 @@ export default class MyItem extends React.Component {
 
     //点击列表点击每一行
     _clickItem() {
+        if (!ClickUtil.noDoubleClick()) {
+            return;
+        }
         this.props.propsNavigate('Details', {title: this.props.desc, url: this.props.url});
     }
 

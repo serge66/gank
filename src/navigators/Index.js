@@ -127,10 +127,10 @@ const MyApp = DrawerNavigator({
             ),
         },
     },
-    Me: {
+    About: {
         screen: MeView,
         navigationOptions: {
-            drawerLabel: 'Me',
+            drawerLabel: 'About',
             drawerIcon: ({tintColor}) => (
                 <Image
                     source={require('../assets/img/icon_me.png')}

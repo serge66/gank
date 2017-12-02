@@ -1,13 +1,10 @@
 'use strict';
 import React, {Component} from "react";
 import {
-    Animated,
     FlatList,
-    ScrollView,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
     RefreshControl,
     ActivityIndicator,
 } from "react-native";
@@ -17,11 +14,9 @@ import {doDoing} from '../redux/actions/AndroidAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
-import ToastUtils from "../utils/ToastUtils";
-import ProgressComponent from '../components/ProgressComponent';
 import MyItem from '../components/MyItem';
+import ClickUtil from '../utils/ClickUtil';
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 let mCurPage;
 let isFirstRefresh;
 let thiz;
@@ -67,8 +62,9 @@ class AndroidView extends Component {
 
     //点击列表点击每一行
     _clickItem(item, index) {
-        // alert(item.desc)
-        // alert(index)
+        if (!ClickUtil.noDoubleClick()) {
+            return;
+        }
         thiz.props.navigation.navigate('Details', {title: item.desc, url: item.url});
     }
 

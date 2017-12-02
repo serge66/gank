@@ -19,6 +19,7 @@ import commonStyles from "../styles/Common";
 import ToastUtils from "../utils/ToastUtils";
 import ProgressComponent from '../components/ProgressComponent';
 import Image from 'react-native-image-progress';
+import ClickUtil from "../utils/ClickUtil";
 // import ProgressBar from 'react-native-progress/Bar';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -70,6 +71,9 @@ class GirlView extends Component {
     _clickItem(item, index) {
         // alert(item.desc)
         // alert(index)
+        if (!ClickUtil.noDoubleClick()) {
+            return;
+        }
         thiz.props.navigation.navigate('GirlDetail', {title: item.desc, url: item.url});
     }
 

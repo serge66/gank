@@ -5,15 +5,18 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
     Linking
 } from 'react-native';
 import TitleBar from '../components/TitleBar';
 import commonStyles from "../styles/Common";
+import ClickUtil from "../utils/ClickUtil";
 
 export default class MeView extends Component {
 
     _onClick(title,url) {
+        if (!ClickUtil.noDoubleClick()) {
+            return;
+        }
         this.props.navigation.navigate('Details',{title:title,url:url});
     }
     _onClickOpenEmail(url){
@@ -29,7 +32,7 @@ export default class MeView extends Component {
     render() {
         return (
             <View style={[commonStyles.bgColor, commonStyles.flex1]}>
-                <TitleBar propsPara={this.props.navigation.navigate} title='Me'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='About'/>
                 <View style={styles.container}>
                     <Text style={styles.welcome}>
                         <Text>
@@ -71,6 +74,16 @@ export default class MeView extends Component {
                             style={styles.link}
                             onPress={() => this._onClick('Gank','https://github.com/serge66/gank')}>
                             https://github.com/serge66/gank
+                        </Text>
+                    </Text>
+                    <Text style={styles.welcome}>
+                        <Text>
+                            Api:
+                        </Text>
+                        <Text
+                            style={styles.link}
+                            onPress={() => this._onClick('Gank','http://gank.io')}>
+                            http://gank.io
                         </Text>
                     </Text>
 

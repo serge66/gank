@@ -18,6 +18,7 @@ import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
 import MyItem from '../components/MyItem';
+import ClickUtil from '../utils/ClickUtil';
 
 let mCurPage;
 let isFirstRefresh;
@@ -64,8 +65,9 @@ class AllView extends Component {
 
     //点击列表点击每一行
     _clickItem(item, index) {
-        // alert(item.desc)
-        // alert(index)
+        if (!ClickUtil.noDoubleClick()) {
+            return;
+        }
         thiz.props.navigation.navigate('Details', {title: item.desc, url: item.url});
     }
 
@@ -99,7 +101,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
@@ -112,7 +114,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
@@ -125,7 +127,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
@@ -138,7 +140,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
@@ -151,7 +153,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
 
@@ -165,7 +167,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
@@ -178,7 +180,7 @@ class AllView extends Component {
                         desc={item.desc}
                         who={item.who}
                         url={item.url}
-                        publishedAt={item.publishedAt.substring(0,10)}
+                        publishedAt={item.publishedAt.substring(0, 10)}
                     />
                 )
                 break;
