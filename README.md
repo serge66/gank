@@ -47,6 +47,12 @@
 
     Thanks for Gank.io providing this API
 
+#### Link
+
+CSDN: http://blog.csdn.net/vitamio/article/details/78706959
+
+简书: http://www.jianshu.com/p/beb0f6638515
+
 #### License
 
     Copyright (C) 2017 serge66 <lishengjiework@126.com>
