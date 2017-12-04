@@ -15,7 +15,8 @@
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-persist": "^4.9.1",
-		"redux-thunk": "^2.2.0"
+		"redux-thunk": "^2.2.0",
+		"teaset": "^0.4.9"
 	},
 	"devDependencies": {
 		"babel-jest": "21.0.0",

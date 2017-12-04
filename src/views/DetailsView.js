@@ -21,9 +21,9 @@ export default class DetailsView extends Component {
             headerTitleStyle: {
                 fontSize: Utils.getFontSize(13),
             },
-            // headerRight: (
-            //     <RightMenu/>
-            // ),
+            headerRight: (
+                <RightMenu url={navigation.state.params.url}/>
+            ),
         }
     )
 

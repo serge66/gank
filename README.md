@@ -29,6 +29,7 @@
     react-native-image-progress
     react-native-root-toast
     react-navigation
+    teaset
 
 #### Getting started
 
