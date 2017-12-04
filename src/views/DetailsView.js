@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Utils from '../utils/Utils';
 import commonStyles from "../styles/Common";
+import RightMenu from '../components/RightMenu';
 
 const BGWASH = 'rgba(255,255,255,0.8)';
 
@@ -20,6 +21,9 @@ export default class DetailsView extends Component {
             headerTitleStyle: {
                 fontSize: Utils.getFontSize(13),
             },
+            // headerRight: (
+            //     <RightMenu/>
+            // ),
         }
     )
 
