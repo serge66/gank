@@ -43,6 +43,8 @@
         react-native run-ios
         react-native run-android
 
+#### Android Demo
+  https://www.pgyer.com/gank_io
 
 #### Thanks
 
