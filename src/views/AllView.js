@@ -329,7 +329,7 @@ class AllView extends Component {
                     //ListHeaderComponent={this._header}
                     ListFooterComponent={this._footer}
                     //ItemSeparatorComponent={this._separator}
-                    ListEmptyComponent={this._listEmptyComponent}
+                    // ListEmptyComponent={this._listEmptyComponent}
                     refreshing={false}
                     keyExtractor={this._keyExtractor}
                     refreshControl={

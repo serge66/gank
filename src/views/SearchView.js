@@ -57,9 +57,10 @@ class SearchView extends Component {
                     // 其中keyValue即为被按下的键。会在onChange之前调用。
                     // onKeyPress={}
                     style={{
-                        fontSize: Utils.getFontSize(15), height: Utils.getHeight(40)
+                        fontSize: Utils.getFontSize(15), height: Utils.getHeight(40),padding:0
                     }}
                     onSubmitEditing={(event) => thiz._onSubmitEditing(event.nativeEvent.text)}
+                    underlineColorAndroid={'transparent'}
                 />
             </View>
         ),

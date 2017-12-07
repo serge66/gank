@@ -67,6 +67,7 @@ export default class DetailsView extends Component {
                     scrollEnabled={true}
                     mixedContentMode={'compatibility'}
                     saveFormDataDisabled={true}
+                    bounces={true}//指定滑动到边缘后是否有回弹效果。ios
                 />
             </View>
         );

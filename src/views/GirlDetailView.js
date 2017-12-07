@@ -21,7 +21,10 @@ export default class GirlDetailView extends Component {
         }
     )
 
-    _renderErrorView() {
+    _renderErrorView(error) {
+        // console.log('加载图片出错,URL:'+this.props.navigation.state.params.url)
+        console.log('加载图片出错,error:'+error)
+        console.log(error)
         return (
             <View style={[styles.container, commonStyles.bgColor]}>
                 <Text style={styles.errorText}>
@@ -35,10 +38,11 @@ export default class GirlDetailView extends Component {
         return (
             <View style={styles.container}>
                 <Image
+                    key={this.props.navigation.state.params.url}
                     resizeMode={'contain'}
                     source={{uri: this.props.navigation.state.params.url}}
                     indicator={ActivityIndicator}
-                    renderError={this._renderErrorView}
+                    renderError={(error)=>this._renderErrorView(error)}
                     style={{
                         width: Utils.size.width,
                         height: Utils.size.height,
