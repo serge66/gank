@@ -2,7 +2,7 @@
  防止重复点击工具类，目前时间定为3秒
  返回true,代表可以点击，false,代表不可以点击
  */
-const minClickDelayTime = 3000; // 延迟时间
+const minClickDelayTime = 1000; // 延迟时间
 let lastClickTime = 0; // 最后点击时间
 
 const noDoubleClick = () => {

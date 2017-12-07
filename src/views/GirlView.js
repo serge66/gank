@@ -16,17 +16,14 @@ import {doDoing} from '../redux/actions/GirlAction';
 import Progress from '../components/ProgressComponent';
 import {connect} from 'react-redux';
 import commonStyles from "../styles/Common";
-import ToastUtils from "../utils/ToastUtils";
 import ProgressComponent from '../components/ProgressComponent';
-import Image from 'react-native-image-progress';
 import ClickUtil from "../utils/ClickUtil";
-// import ProgressBar from 'react-native-progress/Bar';
+import FastImage from 'react-native-fast-image';
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 let mCurPage;
 let isFirstRefresh;
 let thiz;
-
 
 class GirlView extends Component {
 
@@ -49,7 +46,7 @@ class GirlView extends Component {
     renderLoadingView() {
         return (
             <View>
-                <TitleBar propsPara={this.props.navigation.navigate} title='girl'/>
+                <TitleBar propsPara={this.props.navigation.navigate} title='Girl'/>
                 <Progress visible={this.props.girl.isRefreshing || this.props.girl.isLoading}/>
             </View>
         );
@@ -60,6 +57,18 @@ class GirlView extends Component {
         return (
             <View style={[styles.container, commonStyles.bgColor]}>
                 <TitleBar propsPara={this.props.navigation.navigate} title='girl'/>
+                <Text style={styles.errorText}>
+                    网络连接出错,请检查后重试!
+                </Text>
+            </View>
+        );
+    }
+
+    //item加载失败view
+    renderErrorItemView() {
+        console.log('aaaaaaaaaaaa')
+        return (
+            <View style={[styles.container, commonStyles.bgColor]}>
                 <Text style={styles.errorText}>
                     网络连接出错,请检查后重试!
                 </Text>
@@ -84,16 +93,22 @@ class GirlView extends Component {
                 style={[commonStyles.item, {height: Utils.getHeight(200)},
                     {width: Utils.getWidth(Utils.size.width * 0.4)}]}
                 key={item.index}
-                activeOpacity={1}
+                activeOpacity={global.constants.ActiveOpacityNum}
                 onPress={() => this._clickItem(item, index)}>
 
-                <Image
-                    source={{uri: item.url}}
+                <AnimatedFastImage
                     indicator={ActivityIndicator}
+                    source={{
+                        uri: item.url,
+                        priority: FastImage.priority.normal,
+                        // headers:{ Authorization: 'someAuthToken' }
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
                     style={{
                         width: '100%',
                         height: '100%',
-                    }}/>
+                    }}
+                />
 
             </TouchableOpacity>
         );
@@ -167,7 +182,7 @@ class GirlView extends Component {
             isRefreshing: true,
             isLoading: false,
             type: '福利',
-            isImage:true,
+            isImage: true,
         };
         thiz
             .props
@@ -183,7 +198,7 @@ class GirlView extends Component {
             isRefreshing: false,
             isLoading: true,
             type: '福利',
-            isImage:true,
+            isImage: true,
         };
         thiz
             .props

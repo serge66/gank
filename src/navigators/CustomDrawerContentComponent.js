@@ -4,7 +4,6 @@ import {DrawerItems} from 'react-navigation';
 import {
     StyleSheet,
     View,
-    Image,
     Text,
     ScrollView,
     TouchableOpacity
@@ -12,6 +11,7 @@ import {
 import {connect} from "react-redux";
 import Utils from "../utils/Utils";
 import CommonStyles from '../styles/Common';
+import FastImage from 'react-native-fast-image';
 
 class CustomDrawerContentComponent extends React.Component {
 
@@ -41,8 +41,13 @@ class CustomDrawerContentComponent extends React.Component {
                                                                       });
                                                           }}>
                                             <Text style={[styles.titleMsg,CommonStyles.adaptiveTopiOS]}>Gank</Text>
-                                            <Image source={{uri: this.props.all.data[index].url}}
-                                                   style={styles.img}/>
+                                            <FastImage
+                                                source={{
+                                                    uri: this.props.all.data[index].url,
+                                                    priority: FastImage.priority.high,
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                                style={styles.img}/>
                                         </TouchableOpacity>
                                     </View>
                                     <DrawerItems {...this.props.items}/>
@@ -64,9 +69,10 @@ class CustomDrawerContentComponent extends React.Component {
                                                   // this.props.items.navigation.navigate('All');
                                               }}>
                                 <Text style={[styles.titleMsg,CommonStyles.adaptiveTopiOS]}>Gank</Text>
-                                <Image
-                                    resizeMode={'contain'}
-                                    source={require('../assets/img/gank.png')} style={styles.img}/>
+                                <FastImage
+                                    source={require('../assets/img/gank.png')}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                    style={styles.img}/>
                             </TouchableOpacity>
                         </View>
                         <DrawerItems {...this.props.items}/>

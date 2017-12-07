@@ -30,7 +30,8 @@
     react-native-root-toast
     react-navigation
     teaset
-
+    react-native-fast-image
+    
 #### Getting started
 
 

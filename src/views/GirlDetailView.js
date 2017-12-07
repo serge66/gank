@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import Utils from '../utils/Utils';
 import commonStyles from "../styles/Common";
-import Image from 'react-native-image-progress';
-const BGWASH = 'rgba(255,255,255,0.8)';
+const BGWASH = 'rgba(255,255,255,0.8)'
+import FastImage from 'react-native-fast-image';
+import {createImageProgress} from 'react-native-image-progress';
 
+const Image = createImageProgress(FastImage);
 export default class GirlDetailView extends Component {
     static navigationOptions = ({navigation, screenProps}) => ({
             headerTitle: navigation.state.params.title,
@@ -21,10 +23,10 @@ export default class GirlDetailView extends Component {
         }
     )
 
-    _renderErrorView(error) {
+    _renderErrorView() {
         // console.log('加载图片出错,URL:'+this.props.navigation.state.params.url)
-        console.log('加载图片出错,error:'+error)
-        console.log(error)
+        // console.log('加载图片出错,error:'+error)
+        // console.log(error)
         return (
             <View style={[styles.container, commonStyles.bgColor]}>
                 <Text style={styles.errorText}>
@@ -38,15 +40,20 @@ export default class GirlDetailView extends Component {
         return (
             <View style={styles.container}>
                 <Image
-                    key={this.props.navigation.state.params.url}
-                    resizeMode={'contain'}
-                    source={{uri: this.props.navigation.state.params.url}}
+                    onLoadEnd={() => {
+                    }}
                     indicator={ActivityIndicator}
-                    renderError={(error)=>this._renderErrorView(error)}
+                    source={{
+                        uri: this.props.navigation.state.params.url,
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                    renderError={this._renderErrorView}
                     style={{
                         width: Utils.size.width,
                         height: Utils.size.height,
-                    }}/>
+                    }}
+                    />
             </View>
         );
     }
