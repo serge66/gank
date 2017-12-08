@@ -9,7 +9,7 @@ let mTotalData = [];
 function _requestObj(opt) {
 
     return new Request('http://gank.io/api/data/' + opt.type + '/10/' + opt.num
-        + (opt.isImage ? '?imageView2/0/w/100' : ''), {
+        + (opt.isImage ? '?imageView2/0/w/10' : ''), {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'

@@ -243,7 +243,7 @@ class GirlView extends Component {
                             onRefresh={this._refreshing}//此处需要的是方法 _regreshing后面不能有()
                         />
                     }
-                    onEndReachedThreshold={0.1}
+                    onEndReachedThreshold={0.4}
                     onEndReached={() => {
                         this._onload()//此处需要的是方法 用箭头函数也可以
                     }}
