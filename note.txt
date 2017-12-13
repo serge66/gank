@@ -3,5 +3,7 @@
 临时解决方案：
 修改node_modules/react-native-root-siblings/lib/AppRegistryInjection.js 中的第4行
 改为import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
-RN的这个版本移动的emitter包的位置
+RN的这个版本移动了emitter包的位置
+或者:
+在package包中修改为"react-native-root-toast": "github:pilipa-cn/react-native-root-toast#v2.2.0".
 
